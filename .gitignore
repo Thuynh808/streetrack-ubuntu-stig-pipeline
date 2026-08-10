@@ -1,0 +1,46 @@
+# Ansible local inventory / host data
+ansible/inventory.local
+ansible/*inventory.local
+
+# SSH keys / certificates
+*.pem
+*.key
+*.pfx
+*.p12
+
+# Secrets / environment files
+.env
+.env.*
+*.vault
+vault.yml
+vault.yaml
+
+# Ansible artifacts
+*.retry
+*.log
+
+# Python
+__pycache__/
+*.pyc
+
+# Editor / OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Project evidence
+evidence/*
+!evidence/README.md
+
+# Nessus / generated reports
+reports/*
+!reports/README.md
+
+# Common Nessus exports
+*.nessus
+*.html
+*.pdf
+
+# Ansible Inventory
+ansible/inventory
