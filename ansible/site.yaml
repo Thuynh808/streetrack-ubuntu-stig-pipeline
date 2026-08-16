@@ -1,0 +1,7 @@
+---
+- name: Apply UBUNTU STIG LOCKDOWN
+  hosts: node1
+  become: true
+
+  roles:
+  - UBUNTU24-STIG

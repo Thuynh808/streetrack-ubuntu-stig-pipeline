@@ -44,3 +44,6 @@ reports/*
 
 # Ansible Inventory
 ansible/inventory
+
+# Ansible Vault
+ansible/vault.yaml
