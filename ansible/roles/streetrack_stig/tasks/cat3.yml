@@ -1,0 +1,53 @@
+---
+# ============================================================
+# CAT III
+# ============================================================
+
+# ------------------------------------------------------------
+# UBTU-24-600180
+# Chrony makestep
+# ------------------------------------------------------------
+
+- name: "UBTU-24-600180 | Configure chrony makestep"
+  ansible.builtin.lineinfile:
+    path: /etc/chrony/chrony.conf
+    regexp: '^\s*makestep\s+'
+    line: 'makestep 1 -1'
+  notify: Restart chrony
+  when: streetrack_ubtu_24_600180
+  tags:
+    - CAT3
+    - UBTU-24-600180
+    - chrony
+
+
+# ------------------------------------------------------------
+# UBTU-24-900980
+# Audit processing failure notification
+# ------------------------------------------------------------
+
+- name: "UBTU-24-900980 | Ensure local auditor account exists"
+  ansible.builtin.user:
+    name: "{{ streetrack_audit_mail_account }}"
+    system: true
+    shell: /usr/sbin/nologin
+    create_home: false
+    password_lock: true
+    state: present
+  when: streetrack_ubtu_24_900980
+  tags:
+    - CAT3
+    - UBTU-24-900980
+    - audit
+
+- name: "UBTU-24-900980 | Configure audit failure notification account"
+  ansible.builtin.lineinfile:
+    path: /etc/audit/auditd.conf
+    regexp: '^\s*action_mail_acct\s*='
+    line: "action_mail_acct = {{ streetrack_audit_mail_account }}"
+  notify: Restart auditd
+  when: streetrack_ubtu_24_900980
+  tags:
+    - CAT3
+    - UBTU-24-900980
+    - audit

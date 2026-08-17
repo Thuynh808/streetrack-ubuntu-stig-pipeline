@@ -1,7 +1,59 @@
 ---
+- name: Update VM
+  hosts: node1
+  become: true
+
+  vars_files:
+    - vault.yaml
+
+  tasks:
+    - name: Update and upgrade target machine
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: dist
+      tags:
+        - update
+
+
 - name: Apply UBUNTU STIG LOCKDOWN
   hosts: node1
   become: true
 
-  roles:
-  - UBUNTU24-STIG
+  vars_files:
+    - vault.yaml
+
+  tasks:
+    - name: Apply upstream Ubuntu 24 STIG role
+      ansible.builtin.include_role:
+        name: UBUNTU24-STIG
+        apply:
+          tags:
+            - lockdown
+      tags:
+        - lockdown
+
+    # EX-001 - UBTU-24-200680
+    - name: "EX-001 | UBTU-24-200680 | Remove interactive SSH confirmation"
+      ansible.builtin.file:
+        path: /etc/profile.d/ssh_confirm.sh
+        state: absent
+      tags:
+        - lockdown
+        - exception
+
+- name: Apply Streetrack STIG remediation
+  hosts: node1
+  become: true
+
+  vars_files:
+    - vault.yaml
+
+  tasks:
+    - name: Apply Streetrack custom STIG role
+      ansible.builtin.include_role:
+        name: streetrack_stig
+        apply:
+          tags:
+            - streetrack
+      tags:
+        - streetrack

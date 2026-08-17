@@ -1,0 +1,25 @@
+---
+- name: Update GRUB
+  ansible.builtin.command:
+    cmd: update-grub
+  changed_when: true
+
+- name: Restart rsyslog
+  ansible.builtin.service:
+    name: rsyslog
+    state: restarted
+
+- name: Restart chrony
+  ansible.builtin.service:
+    name: chrony
+    state: restarted
+
+- name: Restart auditd
+  ansible.builtin.command:
+    cmd: systemctl restart auditd.service
+  changed_when: true
+
+- name: Apply systemd journal tmpfiles
+  ansible.builtin.command:
+    cmd: systemd-tmpfiles --create /etc/tmpfiles.d/zzz-systemd-stig.conf
+  changed_when: true

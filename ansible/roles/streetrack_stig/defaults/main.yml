@@ -1,0 +1,30 @@
+---
+# Streetrack custom Ubuntu 24.04 STIG remediation
+
+# CAT I
+streetrack_ubtu_24_300028: true
+
+# CAT II
+streetrack_ubtu_24_100310: true
+streetrack_ubtu_24_102010: true
+streetrack_ubtu_24_200060: true
+streetrack_ubtu_24_200090: true
+streetrack_ubtu_24_400220: true
+streetrack_ubtu_24_600150: true
+streetrack_ubtu_24_700010: true
+streetrack_ubtu_24_700020: true
+streetrack_ubtu_24_700030: true
+
+# CAT III
+streetrack_ubtu_24_600180: true
+streetrack_ubtu_24_900980: true
+
+# Configuration values
+streetrack_tmout: 600
+streetrack_password_rounds: 100000
+
+# Allow SSH before enabling UFW
+streetrack_ufw_ssh_port: "22"
+
+# Local security/auditor account for auditd notification
+streetrack_audit_mail_account: auditor

@@ -1,0 +1,361 @@
+---
+# ============================================================
+# CAT II
+# ============================================================
+
+# ------------------------------------------------------------
+# UBTU-24-100310
+# Enable UFW
+# ------------------------------------------------------------
+
+- name: "UBTU-24-100310 | Ensure UFW is installed"
+  ansible.builtin.apt:
+    name: ufw
+    state: present
+  when: streetrack_ubtu_24_100310
+  tags:
+    - CAT2
+    - UBTU-24-100310
+    - firewall
+
+- name: "UBTU-24-100310 | Allow SSH before enabling UFW"
+  ansible.builtin.command:
+    argv:
+      - /usr/sbin/ufw
+      - allow
+      - "{{ streetrack_ufw_ssh_port }}/tcp"
+  register: streetrack_ufw_ssh
+  changed_when: "'Rule added' in streetrack_ufw_ssh.stdout"
+  when: streetrack_ubtu_24_100310
+  tags:
+    - CAT2
+    - UBTU-24-100310
+    - firewall
+
+- name: "UBTU-24-100310 | Check UFW status"
+  ansible.builtin.command:
+    argv:
+      - /usr/sbin/ufw
+      - status
+  register: streetrack_ufw_status
+  changed_when: false
+  when: streetrack_ubtu_24_100310
+  tags:
+    - CAT2
+    - UBTU-24-100310
+    - firewall
+
+- name: "UBTU-24-100310 | Enable UFW"
+  ansible.builtin.command:
+    argv:
+      - /usr/sbin/ufw
+      - --force
+      - enable
+  when:
+    - streetrack_ubtu_24_100310
+    - "'Status: active' not in streetrack_ufw_status.stdout"
+  tags:
+    - CAT2
+    - UBTU-24-100310
+    - firewall
+
+
+# ------------------------------------------------------------
+# UBTU-24-102010
+# Enable audit at system startup
+# ------------------------------------------------------------
+
+- name: "UBTU-24-102010 | Ensure audit=1 in GRUB_CMDLINE_LINUX"
+  ansible.builtin.replace:
+    path: /etc/default/grub
+    regexp: '^(GRUB_CMDLINE_LINUX=")(?![^"]*\baudit=1\b)([^"]*)"$'
+    replace: '\1\2 audit=1"'
+  notify: Update GRUB
+  when: streetrack_ubtu_24_102010
+  tags:
+    - CAT2
+    - UBTU-24-102010
+    - grub
+    - audit
+
+- name: "UBTU-24-102010 | Ensure audit=1 in GRUB_CMDLINE_LINUX_DEFAULT"
+  ansible.builtin.replace:
+    path: /etc/default/grub
+    regexp: '^(GRUB_CMDLINE_LINUX_DEFAULT=")(?![^"]*\baudit=1\b)([^"]*)"$'
+    replace: '\1\2 audit=1"'
+  notify: Update GRUB
+  when: streetrack_ubtu_24_102010
+  tags:
+    - CAT2
+    - UBTU-24-102010
+    - grub
+    - audit
+
+
+# ------------------------------------------------------------
+# UBTU-24-200060
+# 10-minute terminal inactivity timeout
+# ------------------------------------------------------------
+
+- name: "UBTU-24-200060 | Set terminal inactivity timeout"
+  ansible.builtin.lineinfile:
+    path: /etc/profile.d/99-terminal_tmout.sh
+    regexp: '^\s*TMOUT\s*='
+    line: "TMOUT={{ streetrack_tmout }}"
+    create: true
+    owner: root
+    group: root
+    mode: '0644'
+  when: streetrack_ubtu_24_200060
+  tags:
+    - CAT2
+    - UBTU-24-200060
+    - session
+
+
+# ------------------------------------------------------------
+# UBTU-24-200090
+# Monitor remote-access activity with rsyslog
+# ------------------------------------------------------------
+
+- name: "UBTU-24-200090 | Log authentication activity"
+  ansible.builtin.lineinfile:
+    path: /etc/rsyslog.d/50-default.conf
+    regexp: '^\s*auth(?:,\s*authpriv)?\.\*'
+    line: 'auth,authpriv.* /var/log/secure'
+    create: true
+  notify: Restart rsyslog
+  when: streetrack_ubtu_24_200090
+  tags:
+    - CAT2
+    - UBTU-24-200090
+    - logging
+
+- name: "UBTU-24-200090 | Log daemon activity"
+  ansible.builtin.lineinfile:
+    path: /etc/rsyslog.d/50-default.conf
+    regexp: '^\s*daemon\.\*'
+    line: 'daemon.* /var/log/messages'
+    create: true
+  notify: Restart rsyslog
+  when: streetrack_ubtu_24_200090
+  tags:
+    - CAT2
+    - UBTU-24-200090
+    - logging
+
+
+# ------------------------------------------------------------
+# UBTU-24-400220
+# Password hashing rounds
+# ------------------------------------------------------------
+
+- name: "UBTU-24-400220 | Correct existing password hashing rounds"
+  ansible.builtin.replace:
+    path: /etc/pam.d/common-password
+    regexp: '^(\s*password\s+[^#\n]*pam_unix\.so[^#\n]*\brounds=)\d+(\b[^#\n]*)$'
+    replace: '\g<1>{{ streetrack_password_rounds }}\2'
+  when: streetrack_ubtu_24_400220
+  tags:
+    - CAT2
+    - UBTU-24-400220
+    - pam
+
+- name: "UBTU-24-400220 | Add password hashing rounds when absent"
+  ansible.builtin.replace:
+    path: /etc/pam.d/common-password
+    regexp: '^(\s*password\s+[^#\n]*pam_unix\.so(?![^#\n]*\brounds=)[^#\n]*)$'
+    replace: '\1 rounds={{ streetrack_password_rounds }}'
+  when: streetrack_ubtu_24_400220
+  tags:
+    - CAT2
+    - UBTU-24-400220
+    - pam
+
+
+# ------------------------------------------------------------
+# UBTU-24-600150
+# Sticky bit on world-writable public directories
+# ------------------------------------------------------------
+
+- name: "UBTU-24-600150 | Find world-writable directories without sticky bit"
+  ansible.builtin.shell: |
+    find / -xdev -type d -perm -0002 ! -perm -1000 -print 2>/dev/null
+  args:
+    executable: /bin/bash
+  register: streetrack_world_writable_dirs
+  changed_when: false
+  when: streetrack_ubtu_24_600150
+  tags:
+    - CAT2
+    - UBTU-24-600150
+    - permissions
+
+- name: "UBTU-24-600150 | Set sticky bit on world-writable directories"
+  ansible.builtin.command:
+    argv:
+      - chmod
+      - +t
+      - "{{ item }}"
+  loop: "{{ streetrack_world_writable_dirs.stdout_lines | default([]) }}"
+  when:
+    - streetrack_ubtu_24_600150
+    - streetrack_world_writable_dirs.stdout_lines | default([]) | length > 0
+  tags:
+    - CAT2
+    - UBTU-24-600150
+    - permissions
+
+
+# ------------------------------------------------------------
+# UBTU-24-700010
+# Restrict log-file permissions
+# ------------------------------------------------------------
+
+- name: "UBTU-24-700010 | Find log files with excessive permissions"
+  ansible.builtin.shell: |
+    find /var/log -perm /137 ! -name '*[bw]tmp' ! -name '*lastlog' -type f -print
+  args:
+    executable: /bin/bash
+  register: streetrack_permissive_logs
+  changed_when: false
+  when: streetrack_ubtu_24_700010
+  tags:
+    - CAT2
+    - UBTU-24-700010
+    - logging
+
+- name: "UBTU-24-700010 | Restrict log file permissions"
+  ansible.builtin.file:
+    path: "{{ item }}"
+    mode: '0640'
+  loop: "{{ streetrack_permissive_logs.stdout_lines | default([]) }}"
+  when:
+    - streetrack_ubtu_24_700010
+    - streetrack_permissive_logs.stdout_lines | default([]) | length > 0
+  tags:
+    - CAT2
+    - UBTU-24-700010
+    - logging
+
+
+# ------------------------------------------------------------
+# UBTU-24-700020
+# Restrict systemd journal permissions
+# ------------------------------------------------------------
+
+- name: "UBTU-24-700020 | Configure systemd journal permissions"
+  ansible.builtin.copy:
+    dest: /etc/tmpfiles.d/zzz-systemd-stig.conf
+    owner: root
+    group: root
+    mode: '0644'
+    content: |
+      # Managed by Streetrack Ansible
+      # UBTU-24-700020
+      z /run/log/journal 0640 root systemd-journal - -
+      Z /run/log/journal/%m ~0640 root systemd-journal - -
+      z /var/log/journal 0640 root systemd-journal - -
+      z /var/log/journal/%m 0640 root systemd-journal - -
+      z /var/log/journal/%m/system.journal 0640 root systemd-journal - -
+  notify: Apply systemd journal tmpfiles
+  when: streetrack_ubtu_24_700020
+  tags:
+    - CAT2
+    - UBTU-24-700020
+    - logging
+
+
+# ------------------------------------------------------------
+# UBTU-24-700030
+# Restrict journalctl
+# ------------------------------------------------------------
+
+- name: "UBTU-24-700030 | Restrict journalctl permissions"
+  ansible.builtin.file:
+    path: /usr/bin/journalctl
+    owner: root
+    group: root
+    mode: '0740'
+  when: streetrack_ubtu_24_700030
+  tags:
+    - CAT2
+    - UBTU-24-700030
+    - logging
+
+# ---------------------------------------------------------------------------
+# UBTU-24-700070
+# Journal files must be group-owned by systemd-journal
+# ---------------------------------------------------------------------------
+
+- name: "UBTU-24-700070 | Find persistent systemd journal files"
+  ansible.builtin.find:
+    paths: /var/log/journal
+    recurse: true
+    file_type: file
+  register: streetrack_persistent_journal_files
+  tags:
+    - CAT2
+    - UBTU-24-700070
+
+- name: "UBTU-24-700070 | Set persistent journal file ownership and permissions"
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    owner: root
+    group: systemd-journal
+    mode: '0640'
+  loop: "{{ streetrack_persistent_journal_files.files }}"
+  tags:
+    - CAT2
+    - UBTU-24-700070
+
+- name: "UBTU-24-700070 | Find runtime systemd journal files"
+  ansible.builtin.find:
+    paths: /run/log/journal
+    recurse: true
+    file_type: file
+  register: streetrack_runtime_journal_files
+  tags:
+    - CAT2
+    - UBTU-24-700070
+
+- name: "UBTU-24-700070 | Set runtime journal file ownership and permissions"
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    owner: root
+    group: systemd-journal
+    mode: '0640'
+  loop: "{{ streetrack_runtime_journal_files.files }}"
+  tags:
+    - CAT2
+    - UBTU-24-700070
+
+- name: "UBTU-24-700070 | Configure systemd journal tmpfiles policy"
+  ansible.builtin.copy:
+    dest: /etc/tmpfiles.d/zzz-systemd-stig.conf
+    owner: root
+    group: root
+    mode: '0644'
+    content: |
+      Z /run/log/journal/%m ~0640 root systemd-journal - -
+      z /var/log/journal/%m 0640 root systemd-journal - -
+      z /var/log/journal/%m/system.journal 0640 root systemd-journal - -
+  tags:
+    - CAT2
+    - UBTU-24-700070
+
+# ---------------------------------------------------------------------------
+# UBTU-24-700120
+# Restore /var/log permissions
+# ---------------------------------------------------------------------------
+
+- name: "UBTU-24-700120 | Set permissions on /var/log"
+  ansible.builtin.file:
+    path: /var/log
+    owner: root
+    group: syslog
+    mode: '0755'
+    state: directory
+  tags:
+    - CAT2
+    - UBTU-24-700120

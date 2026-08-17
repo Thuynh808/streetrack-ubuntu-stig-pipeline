@@ -1,0 +1,23 @@
+---
+# ============================================================
+# CAT I
+# ============================================================
+
+# ------------------------------------------------------------
+# UBTU-24-300028
+# Do not permit PAM null passwords
+# ------------------------------------------------------------
+
+- name: "UBTU-24-300028 | Remove nullok from PAM configuration"
+  ansible.builtin.replace:
+    path: "{{ item }}"
+    regexp: '\s+nullok\b'
+    replace: ''
+  loop:
+    - /etc/pam.d/common-auth
+    - /etc/pam.d/common-password
+  when: streetrack_ubtu_24_300028
+  tags:
+    - CAT1
+    - UBTU-24-300028
+    - pam

@@ -1,0 +1,9 @@
+---
+- name: Apply CAT I custom remediations
+  ansible.builtin.import_tasks: cat1.yml
+
+- name: Apply CAT II custom remediations
+  ansible.builtin.import_tasks: cat2.yml
+
+- name: Apply CAT III custom remediations
+  ansible.builtin.import_tasks: cat3.yml
