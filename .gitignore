@@ -10,7 +10,6 @@ ansible/*inventory.local
 
 # Secrets / environment files
 .env
-.env.*
 *.vault
 vault.yml
 vault.yaml
