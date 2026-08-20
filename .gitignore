@@ -21,6 +21,7 @@ vault.yaml
 # Python
 __pycache__/
 *.pyc
+.venv/
 
 # Editor / OS files
 .vscode/
