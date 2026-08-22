@@ -3,9 +3,6 @@
   hosts: node1
   become: true
 
-  vars_files:
-    - vault.yaml
-
   tasks:
     - name: Update and upgrade target machine
       ansible.builtin.apt:
@@ -18,9 +15,6 @@
 - name: Apply UBUNTU STIG LOCKDOWN
   hosts: node1
   become: true
-
-  vars_files:
-    - vault.yaml
 
   tasks:
     - name: Apply upstream Ubuntu 24 STIG role
@@ -44,9 +38,6 @@
 - name: Apply Streetrack STIG remediation
   hosts: node1
   become: true
-
-  vars_files:
-    - vault.yaml
 
   tasks:
     - name: Apply Streetrack custom STIG role
