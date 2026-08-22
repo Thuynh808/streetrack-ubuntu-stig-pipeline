@@ -48,3 +48,7 @@ ansible/inventory
 # Ansible Vault
 ansible/vault.yaml
 .ansible_vault_pass
+
+# Evidence
+evidence/*
+!evidence/README.md

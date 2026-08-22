@@ -3,10 +3,10 @@
 import os
 import sys
 import argparse
-
+import time
 import requests
 from dotenv import load_dotenv
-
+from datetime import datetime
 
 # ------------------------------------------------------------
 # Load environment variables
@@ -161,12 +161,6 @@ def get_policy_details(policy_id):
     response = api_get(f"/policies/{policy_id}")
     return response.json()
 
-def get_policy_details(policy_id):
-    print(f"[INFO] Retrieving policy details for ID: {policy_id}")
-
-    response = api_get(f"/policies/{policy_id}")
-    return response.json()
-
 
 # ------------------------------------------------------------
 # Find internal scanner
@@ -197,9 +191,11 @@ def create_scan(policy, policy_details, scanner, target, mode):
     policy_uuid = policy_details["uuid"]
     scanner_id = scanner["id"]
 
-    scan_name = f"Streetrack-Ubuntu-STIG-{mode}"
+    timestamp = datetime.now().strftime("%Y-%m-%d-%H%M")
+    scan_name = f"Streetrack-Ubuntu-STIG-{mode}-{timestamp}"
 
     print(f"[INFO] Creating {mode} scan")
+    print(f"[INFO] Scan name: {scan_name}")
     print(f"[INFO] Target: {target}")
     print(f"[INFO] Scanner: {scanner.get('name')}")
     print(f"[INFO] Scanner ID: {scanner_id}")
@@ -219,7 +215,7 @@ def create_scan(policy, policy_details, scanner, target, mode):
 
     response = api_post("/scans", payload)
 
-    return response.json()
+    return response.json(), scan_name
 
 
 # ------------------------------------------------------------
@@ -236,6 +232,218 @@ def launch_scan(scan_id):
 
     return response.json()
 
+
+# ------------------------------------------------------------
+# Wait for scan to complete
+# ------------------------------------------------------------
+
+def wait_for_scan(
+    scan_id,
+    poll_interval=30,
+    max_poll_errors=5,
+):
+    print()
+    print(f"[INFO] Waiting for scan ID {scan_id} to complete")
+
+    consecutive_errors = 0
+
+    while True:
+        try:
+            url = f"{NESSUS_URL.rstrip('/')}/scans/{scan_id}"
+
+            response = requests.get(
+                url,
+                headers=HEADERS,
+                timeout=30,
+            )
+
+            response.raise_for_status()
+            data = response.json()
+
+            status = (
+                data.get("info", {})
+                .get("status", "unknown")
+                .lower()
+            )
+
+            consecutive_errors = 0
+
+            print(f"[INFO] Scan status: {status}")
+
+            if status == "completed":
+                print("[OK] Scan completed successfully")
+                return data
+
+            if status in {
+                "canceled",
+                "aborted",
+                "stopped",
+                "failed",
+            }:
+                print(
+                    f"[ERROR] Scan ended unexpectedly "
+                    f"with status: {status}"
+                )
+                sys.exit(1)
+
+        except requests.exceptions.RequestException as error:
+            consecutive_errors += 1
+
+            print(
+                f"[WARNING] Unable to retrieve scan status "
+                f"({consecutive_errors}/{max_poll_errors})"
+            )
+            print(f"[WARNING] {error}")
+
+            if consecutive_errors >= max_poll_errors:
+                print(
+                    "[ERROR] Maximum consecutive polling "
+                    "errors reached."
+                )
+                sys.exit(1)
+
+        time.sleep(poll_interval)
+
+
+# ------------------------------------------------------------
+# Request compliance HTML export
+# ------------------------------------------------------------
+
+def request_html_export(scan_id):
+    print()
+    print(
+        f"[INFO] Requesting compliance HTML export "
+        f"for scan ID {scan_id}"
+    )
+
+    response = api_post(
+        f"/scans/{scan_id}/export",
+        {
+            "format": "html",
+            "chapters": "compliance_exec;compliance",
+        },
+    )
+
+    data = response.json()
+
+    file_id = data.get("file")
+
+    if not file_id:
+        print("[ERROR] Export request did not return a file ID")
+        print(data)
+        sys.exit(1)
+
+    print("[OK] Compliance HTML export requested")
+    print(f"Export file ID: {file_id}")
+
+    return file_id
+
+# ------------------------------------------------------------
+# Wait for HTML export to become ready
+# ------------------------------------------------------------
+
+def wait_for_export(
+    scan_id,
+    file_id,
+    poll_interval=5,
+):
+    print()
+    print("[INFO] Waiting for HTML export to become ready")
+
+    while True:
+        response = api_get(
+            f"/scans/{scan_id}/export/{file_id}/status"
+        )
+
+        data = response.json()
+
+        status = data.get(
+            "status",
+            "unknown",
+        ).lower()
+
+        print(f"[INFO] Export status: {status}")
+
+        if status == "ready":
+            print("[OK] HTML export is ready")
+            return
+
+        if status in {
+            "error",
+            "failed",
+            "canceled",
+        }:
+            print(
+                f"[ERROR] Export ended unexpectedly "
+                f"with status: {status}"
+            )
+            sys.exit(1)
+
+        time.sleep(poll_interval)
+
+# ------------------------------------------------------------
+# Download compliance HTML report
+# ------------------------------------------------------------
+
+def download_html_export(
+    scan_id,
+    file_id,
+    mode,
+    scan_name,
+):
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = os.path.dirname(script_dir)
+
+    output_dir = os.path.join(
+        project_root,
+        "evidence",
+        mode,
+    )
+
+    os.makedirs(
+        output_dir,
+        exist_ok=True,
+    )
+
+    filename = f"{scan_name}-report.html"
+
+    output_path = os.path.join(
+        output_dir,
+        filename,
+    )
+
+    url = (
+        f"{NESSUS_URL.rstrip('/')}"
+        f"/scans/{scan_id}"
+        f"/export/{file_id}/download"
+    )
+
+    print()
+    print("[INFO] Downloading compliance HTML report")
+
+    try:
+        response = requests.get(
+            url,
+            headers=HEADERS,
+            timeout=60,
+        )
+
+        response.raise_for_status()
+
+    except requests.exceptions.RequestException as error:
+        print(
+            f"[ERROR] Failed to download HTML report: "
+            f"{error}"
+        )
+        sys.exit(1)
+
+    with open(output_path, "wb") as report_file:
+        report_file.write(response.content)
+
+    print("[OK] Compliance HTML report downloaded")
+    print(f"[OK] Saved to: {output_path}")
+
+    return output_path
 
 
 # ------------------------------------------------------------
@@ -290,7 +498,7 @@ def main():
     print(f"Name: {scanner.get('name')}")
     print(f"ID:   {scanner.get('id')}")   
 
-    scan = create_scan(
+    scan, scan_name = create_scan(
         policy,
         policy_details,
         scanner,
@@ -318,6 +526,30 @@ def main():
 
     if "scan_uuid" in launch_result:
         print(f"Scan UUID: {launch_result.get('scan_uuid')}")
+    
+    wait_for_scan(scan_id)
+
+    file_id = request_html_export(scan_id)
+
+    wait_for_export(
+        scan_id,
+        file_id,
+    )
+
+    report_file = download_html_export(
+        scan_id,
+        file_id,
+        args.mode,
+        scan_name,
+    )
+
+    print()
+    print("=" * 60)
+    print("[OK] Streetrack STIG assessment complete")
+    print(f"[OK] Assessment stage: {args.mode}")
+    print(f"[OK] Scan ID: {scan_id}")
+    print(f"[OK] Report: {report_file}")
+    print("=" * 60)
 
 if __name__ == "__main__":
     main()
