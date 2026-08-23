@@ -17,7 +17,6 @@ ansible/group_vars/all/vault.yaml
 
 # Ansible artifacts
 *.retry
-*.log
 
 # Python
 __pycache__/
@@ -32,7 +31,6 @@ Thumbs.db
 
 # Project evidence
 # evidence/*
-# !evidence/README.md
 
 # Nessus / generated reports
 reports/*
@@ -40,7 +38,6 @@ reports/*
 
 # Common Nessus exports
 *.nessus
-*.html
 *.pdf
 
 # Ansible Inventory

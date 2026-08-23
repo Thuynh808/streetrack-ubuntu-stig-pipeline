@@ -1,0 +1,1493 @@
+
+PLAY [Update VM] ***************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node1]
+
+TASK [Update and upgrade target machine] ***************************************
+ok: [node1]
+
+PLAY [Apply UBUNTU STIG LOCKDOWN] **********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node1]
+
+TASK [Apply upstream Ubuntu 24 STIG role] **************************************
+
+TASK [UBUNTU24-STIG : Check OS version and family] *****************************
+ok: [node1] => {
+    "changed": false,
+    "msg": "This role is running against a supported OS Ubuntu 24"
+}
+
+TASK [UBUNTU24-STIG : Check ansible version] ***********************************
+ok: [node1] => {
+    "changed": false,
+    "msg": "This role is running a supported version of ansible 2.16.19 >= 2.16.1"
+}
+
+TASK [UBUNTU24-STIG : Discover and set container variable if required] *********
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Load variable for container] *****************************
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Output if discovered is a container] *********************
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Capture current password state of connecting user] *******
+ok: [node1]
+
+TASK [UBUNTU24-STIG : Check password set for strkadmin24 | password state] *****
+ok: [node1] => {
+    "changed": false,
+    "msg": "You have a password set for the user strkadmin24"
+}
+
+TASK [UBUNTU24-STIG : Check ubtu24stig_bootloader_password_hash variable has been changed] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Gather the package facts] ********************************
+ok: [node1]
+
+TASK [UBUNTU24-STIG : PRELIM | AUDIT | Capture UID_MIN from /etc/login.defs] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : PRELIM | AUDIT | Capture UID_MAX from /etc/login.defs] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : PRELIM | AUDIT | Set facts for interactive UID/GID ranges] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : PRELIM | PATCH | Run apt update] *************************
+ok: [node1]
+
+TASK [UBUNTU24-STIG : PRELIM | Include audit specific variables] ***************
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Pre Audit Setup | Setup the LE audit] ********************
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Pre Audit Setup | Ensure existence of {{ audit_conf_dir }}] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Pre Audit Setup | Install git] ***************************
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Pre Audit Setup | Retrieve audit content files from git] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Pre Audit Setup | Copy to audit content files to server] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Pre Audit Setup | Unarchive audit content files on server] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Pre Audit Setup | Get audit content from url] ************
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Pre Audit Setup | Check for goss file] *******************
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Pre Audit Setup | If audit ensure goss is available] *****
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Pre Audit Setup | Copy ansible default vars values to test audit] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Pre Audit | Run pre_remediation audit UBUNTU24-STIG] *****
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Pre Audit | Capture audit data if json format] ***********
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Pre Audit | Set Fact for audit summary] ******************
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Pre Audit | Capture audit data if documentation format] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Pre Audit | Set Fact for audit summary] ******************
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : POST | FETCH | Fetch files and copy to controller] *******
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : POST | FETCH | Copy files to location available to managed node] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : POST | FETCH | Fetch files and copy to controller | Warning if issues with fetch_audit_files] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : FETCH_AUDIT_FILES | WARN | Set fact for manual task warning.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Audit_only | Show Audit Summary] *************************
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Audit_only | Stop task for host as audit_only selected] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : PRELIM | AUDIT | Discover if system is subscribed for PRO plan (needed for FIPS) | Check status if pkg installed] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : PRELIM | AUDIT | Discover if system is subscribed for PRO plan (needed for FIPS) | Set fact for Pro subscription] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : PRELIM | capture /etc/password variables] ****************
+included: /root/streetrack-ubuntu-stig-pipeline/ansible/roles/UBUNTU24-STIG/tasks/parse_etc_password.yml for node1
+
+TASK [UBUNTU24-STIG : PRELIM | Parse /etc/passwd] ******************************
+ok: [node1]
+
+TASK [UBUNTU24-STIG : PRELIM | Split passwd entries] ***************************
+ok: [node1] => (item=root:x:0:0:root:/root:/bin/bash)
+ok: [node1] => (item=daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin)
+ok: [node1] => (item=bin:x:2:2:bin:/bin:/usr/sbin/nologin)
+ok: [node1] => (item=sys:x:3:3:sys:/dev:/usr/sbin/nologin)
+ok: [node1] => (item=sync:x:4:65534:sync:/bin:/bin/sync)
+ok: [node1] => (item=games:x:5:60:games:/usr/games:/usr/sbin/nologin)
+ok: [node1] => (item=man:x:6:12:man:/var/cache/man:/usr/sbin/nologin)
+ok: [node1] => (item=lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin)
+ok: [node1] => (item=mail:x:8:8:mail:/var/mail:/usr/sbin/nologin)
+ok: [node1] => (item=news:x:9:9:news:/var/spool/news:/usr/sbin/nologin)
+ok: [node1] => (item=uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin)
+ok: [node1] => (item=proxy:x:13:13:proxy:/bin:/usr/sbin/nologin)
+ok: [node1] => (item=www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin)
+ok: [node1] => (item=backup:x:34:34:backup:/var/backups:/usr/sbin/nologin)
+ok: [node1] => (item=list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin)
+ok: [node1] => (item=irc:x:39:39:ircd:/run/ircd:/usr/sbin/nologin)
+ok: [node1] => (item=_apt:x:42:65534::/nonexistent:/usr/sbin/nologin)
+ok: [node1] => (item=nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin)
+ok: [node1] => (item=systemd-network:x:998:998:systemd Network Management:/:/usr/sbin/nologin)
+ok: [node1] => (item=systemd-timesync:x:996:996:systemd Time Synchronization:/:/usr/sbin/nologin)
+ok: [node1] => (item=dhcpcd:x:100:65534:DHCP Client Daemon,,,:/usr/lib/dhcpcd:/bin/false)
+ok: [node1] => (item=messagebus:x:101:101::/nonexistent:/usr/sbin/nologin)
+ok: [node1] => (item=syslog:x:102:102::/nonexistent:/usr/sbin/nologin)
+ok: [node1] => (item=systemd-resolve:x:991:991:systemd Resolver:/:/usr/sbin/nologin)
+ok: [node1] => (item=uuidd:x:103:103::/run/uuidd:/usr/sbin/nologin)
+ok: [node1] => (item=tss:x:104:104:TPM software stack,,,:/var/lib/tpm:/bin/false)
+ok: [node1] => (item=sshd:x:105:65534::/run/sshd:/usr/sbin/nologin)
+ok: [node1] => (item=pollinate:x:106:1::/var/cache/pollinate:/bin/false)
+ok: [node1] => (item=tcpdump:x:107:108::/nonexistent:/usr/sbin/nologin)
+ok: [node1] => (item=landscape:x:108:109::/var/lib/landscape:/usr/sbin/nologin)
+ok: [node1] => (item=fwupd-refresh:x:990:990:Firmware update daemon:/var/lib/fwupd:/usr/sbin/nologin)
+ok: [node1] => (item=polkitd:x:989:989:User for polkitd:/:/usr/sbin/nologin)
+ok: [node1] => (item=_chrony:x:109:113:Chrony daemon,,,:/var/lib/chrony:/usr/sbin/nologin)
+ok: [node1] => (item=strkadmin24:x:1000:1000:Ubuntu:/home/strkadmin24:/bin/bash)
+ok: [node1] => (item=vagrant:x:1001:1001::/home/vagrant:/bin/sh)
+ok: [node1] => (item=postfix:x:110:115::/var/spool/postfix:/usr/sbin/nologin)
+ok: [node1] => (item=_aide:x:988:988:Advanced Intrusion Detection Environment:/var/lib/aide:/usr/sbin/nologin)
+ok: [node1] => (item=auditor:x:999:987::/home/auditor:/usr/sbin/nologin)
+
+TASK [UBUNTU24-STIG : PRELIM | Interactive Users] ******************************
+ok: [node1]
+
+TASK [UBUNTU24-STIG : PRELIM | Gather apt conf file list] **********************
+ok: [node1]
+
+TASK [UBUNTU24-STIG : PRELIM | PATCH | Find all sudoers files.] ****************
+ok: [node1]
+
+TASK [UBUNTU24-STIG : PRELIM | Gather accounts with empty password fields] *****
+ok: [node1]
+
+TASK [UBUNTU24-STIG : PRELIM | Gather UID 0 accounts other than root] **********
+ok: [node1]
+
+TASK [UBUNTU24-STIG : PRELIM | Create list of mount points] ********************
+ok: [node1]
+
+TASK [UBUNTU24-STIG : PRELIM | Configure System Accounting (auditd)] ***********
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : PRELIM | Configure syslog (rsyslog)] *********************
+ok: [node1]
+
+TASK [UBUNTU24-STIG : PRELIM | Ensure ssh config file exists] ******************
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : PRELIM | SSH | find existing ssh config files] ***********
+ok: [node1]
+
+TASK [UBUNTU24-STIG : PRELIM | Discover Gnome Desktop Environment] *************
+ok: [node1]
+
+TASK [UBUNTU24-STIG : PRELIM | AUDIT | Discover is wireless adapter on system] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : PRELIM | AUDIT | If wireless adapter present capture module] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : PRELIM | Gather the package facts after prelim] **********
+ok: [node1]
+
+TASK [UBUNTU24-STIG : HIGH | UBTU-24-100030 | PATCH | Ubuntu 24.04 LTS must not have the telnet package installed.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : HIGH | UBTU-24-100040 | PATCH | Ubuntu 24.04 LTS must not have the rsh-server package installed.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : HIGH | UBTU-24-100800 | PATCH | Ubuntu 24.04 LTS must have SSH installed.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : HIGH | UBTU-24-100810 | PATCH | Ubuntu 24.04 LTS must use SSH to protect the confidentiality and integrity of transmitted information.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : HIGH | UBTU-24-102000 | PATCH | Ubuntu 24.04 LTS when booted must require authentication upon booting into single-user and maintenance modes.] ***
+skipping: [node1] => (item={'regex': '^set superusers=', 'line': 'set superusers="root"'}) 
+skipping: [node1] => (item={'regex': '^password_pbkdf2 root', 'line': 'password_pbkdf2 root grub.pbkdf2.sha512.changethispassword'}) 
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : HIGH | UBTU-24-102000 | PATCH | Ubuntu 24.04 LTS when booted must require authentication upon booting into single-user and maintenance modes.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : HIGH | UBTU-24-300022 | PATCH | Ubuntu 24.04 LTS must be configured so that remote X connections are disabled, unless to fulfill documented and validated mission requirements.] ***
+ok: [node1] => (item={'path': '/etc/ssh/sshd_config', 'mode': '0600', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 3859, 'inode': 560855, 'dev': 66305, 'nlink': 1, 'atime': 1787508475.063191, 'mtime': 1787508392.1714396, 'ctime': 1787508392.1794398, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': False, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/ssh/sshd_config.d/50-cloudimg-settings.conf', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 185, 'inode': 559756, 'dev': 66305, 'nlink': 1, 'atime': 1787508275.9149745, 'mtime': 1787508270.237852, 'ctime': 1787508270.2458522, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/ssh/sshd_config.d/50-cloud-init.conf', 'mode': '0600', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 44, 'inode': 559762, 'dev': 66305, 'nlink': 1, 'atime': 1787508275.9149745, 'mtime': 1787508271.0738702, 'ctime': 1787508271.0818703, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': False, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/ssh/sshd_config.d/60-cloudimg-settings.conf', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 43, 'inode': 559763, 'dev': 66305, 'nlink': 1, 'atime': 1787508275.9149745, 'mtime': 1787508271.9108882, 'ctime': 1787508271.9188883, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+
+TASK [UBUNTU24-STIG : HIGH | UBTU-24-300025 | PATCH | Ubuntu 24.04 LTS must disable the x86 Ctrl-Alt-Delete key sequence if a graphical user interface is installed.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : HIGH | UBTU-24-300026 | PATCH | Ubuntu 24.04 LTS must disable the x86 Ctrl-Alt-Delete key sequence.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : HIGH | UBTU-24-300027 | PATCH | Ubuntu 24.04 LTS must not have accounts configured with blank or null passwords.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : HIGH | UBTU-24-300027 | PATCH | Ubuntu 24.04 LTS must not have accounts configured with blank or null passwords.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : HIGH | UBTU-24-300027 | WARN | Ubuntu 24.04 LTS must not have accounts configured with blank or null passwords.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : HIGH | UBTU-24-300027 | WARN | Set fact for manual task warning.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : HIGH | UBTU-24-300028 | PATCH | Ubuntu 24.04 LTS must not allow accounts configured in Pluggable Authentication Modules (PAM) with blank or null passwords.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : HIGH | UBTU-24-300031 | PATCH | Ubuntu 24.04 LTS must not allow unattended or automatic login via SSH.] ***
+ok: [node1] => (item={'regex': '^\\s*(#|)PermitEmptyPasswords', 'line': 'PermitEmptyPasswords no'})
+ok: [node1] => (item={'regex': '^\\s*(#|)PermitUserEnvironment', 'line': 'PermitUserEnvironment no'})
+
+TASK [UBUNTU24-STIG : HIGH | UBTU-24-400370 | PATCH | Ubuntu 24.04 LTS must map the authenticated identity to the user or group account for PKI-based authentication.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : HIGH | UBTU-24-600030 | PATCH | Ubuntu 24.04 LTS must implement NIST FIPS-validated cryptography to protect classified information | Enable FIPS] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : HIGH | UBTU-24-600030 | PATCH | Ubuntu 24.04 LTS must implement NIST FIPS-validated cryptography to protect classified information | Pro Enable FIPS] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : HIGH | UBTU-24-600030 | WARN | Ubuntu 24.04 LTS must implement NIST FIPS-validated cryptography to protect classified information | Warning] ***
+ok: [node1] => {
+    "msg": "Warning!! - Unable carry out UBTU-24-600030 for FIPS enablement, System is not subscribed"
+}
+
+TASK [UBUNTU24-STIG : HIGH | UBTU-24-600030 | WARN | Set fact for manual task warning.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : HIGH | UBTU-24-600130 | AUDIT | Ubuntu 24.04 LTS must ensure only users who need access to security functions are part of sudo group. | get group member] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : HIGH | UBTU-24-600130 | PATCH | Ubuntu 24.04 LTS must ensure only users who need access to security functions are part of sudo group. | Ensure member exist] ***
+ok: [node1] => (item=vagrant)
+
+TASK [UBUNTU24-STIG : HIGH | UBTU-24-600130 | PATCH | Ubuntu 24.04 LTS must ensure only users who need access to security functions are part of sudo group. | Remove user not in required list] ***
+skipping: [node1] => (item=strkadmin24) 
+skipping: [node1] => (item=vagrant) 
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : HIGH | UBTU-24-600130 | WARN | Ubuntu 24.04 LTS must ensure only users who need access to security functions are part of sudo group. | Warning] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : HIGH | UBTU-24-600130 | WARN | Set fact for manual task warning.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : HIGH | UBTU-24-700400 | AUDIT | Ubuntu 24.04 LTS must be a vendor-supported release.] ***
+ok: [node1] => {
+    "msg": "System is running a vendor supported release as per assert checks at the beginning of the playbook - Ubuntu 24"
+}
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-100100 | PATCH | Ubuntu 24.04 LTS must use a file integrity tool to verify correct operation of all security functions.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-100110 | AUDIT | Ubuntu 24.04 LTS must configure AIDE to perform file integrity checking on the file system. | Get DB file] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-100110 | AUDIT | Ubuntu 24.04 LTS must configure AIDE to perform file integrity checking on the file system. | Get DB file] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-100110 | PATCH | Ubuntu 24.04 LTS must configure AIDE to perform file integrity checking on the file system. | Run aide check] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-100110 | PATCH | Ubuntu 24.04 LTS must configure AIDE to perform file integrity checking on the file system. | Initiate aide DB] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-100120 | AUDIT | Ubuntu 24.04 LTS must be configured so that the script that runs each 30 days or less to check file integrity is the default. | capture sha1sum] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-100120 | PATCH | Ubuntu 24.04 LTS must be configured so that the script that runs each 30 days or less to check file integrity is the default. | replace if needed] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-100130 | PATCH | Ubuntu 24.04 LTS must notify designated personnel if baseline configurations are changed in an unauthorized manner. The file integrity tool must notify the system administrator when changes to the baseline configuration or anomalies in the operation of any security functions are discovered.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-100200 | PATCH | Ubuntu 24.04 LTS must be configured to preserve log records from failure events.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-100200 | PATCH | Ubuntu 24.04 LTS must be configured to preserve log records from failure events.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-100300 | PATCH | Ubuntu 24.04 LTS must have an application firewall installed in order to control remote access methods.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-100310 | PATCH | Ubuntu 24.04 LTS must enable and run the Uncomplicated Firewall (ufw).] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-100400 | PATCH | Ubuntu 24.04 LTS must have the "auditd" package installed.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-100410 | PATCH | Ubuntu 24.04 LTS must produce audit records and reports containing information to establish when, where, what type, the source, and the outcome for all DOD-defined auditable events and actions in near real time.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-100500 | PATCH | Ubuntu 24.04 LTS must have AppArmor installed.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-100510 | PATCH | Ubuntu 24.04 LTS must be configured to use AppArmor.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-100600 | PATCH | Ubuntu 24.04 LTS must have the "libpam-pwquality" package installed.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-100650 | PATCH | Ubuntu 24.04 LTS must have the "SSSD" package installed.] ***
+skipping: [node1] => (item=sssd) 
+skipping: [node1] => (item=libpam-sss) 
+skipping: [node1] => (item=libnss-sss) 
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-100660 | PATCH | Ubuntu 24.04 LTS must use the "SSSD" package for multifactor authentication services.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-100820 | PATCH | Ubuntu 24.04 LTS must configure the SSH daemon to use FIPS 140-3-approved ciphers to prevent the unauthorized disclosure of information and/or detect changes to information during transmission.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-100830 | PATCH | Ubuntu 24.04 LTS must configure the SSH daemon to use Message Authentication Codes (MACs) employing FIPS 140-3-approved cryptographic hashes to prevent the unauthorized disclosure of information and/or detect changes to information during transmission.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-100840 | PATCH | Ubuntu 24.04 LTS SSH server must be configured to use only FIPS-validated key exchange algorithms.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-100850 | PATCH | Ubuntu 24.04 LTS must configure the SSH client to use FIPS 140-3 approved ciphers to prevent the unauthorized disclosure of information and/or detect changes to information during transmission.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-100860 | PATCH | Ubuntu 24.04 LTS SSH client must be configured to use only Message Authentication Codes (MACs) employing FIPS 140-3 validated cryptographic hash algorithms.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-100900 | PATCH | Ubuntu 24.04 LTS must accept Personal Identity Verification (PIV) credentials.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-100910 | PATCH | Ubuntu 24.04 LTS must accept Personal Identity Verification (PIV) credentials managed through the Privileged Access Management (PAM)  framework.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-101000 | PATCH | Ubuntu 24.04 LTS must allow users to directly initiate a session lock for all connection types.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-102010 | PATCH | Ubuntu 24.04 LTS must initiate session audits at system startup. | Get GRUB_CMDLINE_LINUX] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-102010 | PATCH | Ubuntu 24.04 LTS must initiate session audits at system startup. | Add setting if doesn't exist] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-102010 | PATCH | Ubuntu 24.04 LTS must initiate session audits at system startup. | Update setting if exists] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-200020 | PATCH | Ubuntu 24.04 LTS must initiate a graphical session lock after 10 minutes of inactivity.] ***
+skipping: [node1] => (item={'section': 'org/gnome/desktop/screensaver', 'option': 'lock-enabled', 'value': True}) 
+skipping: [node1] => (item={'section': 'org/gnome/desktop/screensaver', 'option': 'lock-delay', 'value': 'uint32 0'}) 
+skipping: [node1] => (item={'section': 'org/gnome/desktop/session', 'option': 'idle-delay', 'value': 'uint32 600'}) 
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-200040 | PATCH | Ubuntu 24.04 LTS must prevent a user from overriding the disabling of the graphical user interface automount function.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-200041 | PATCH | Ubuntu 24.04 LTS must prevent a user from overriding the disabling of the graphical user interface autorun function.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-200042 | PATCH | Ubuntu 24.04 LTS must prevent a user from overriding the disabling of the graphical user smart card removal action.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-200043 | PATCH | Ubuntu 24.04 LTS must conceal, via the session lock, information previously visible on the display with a publicly viewable image.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-200043 | PATCH | Ubuntu 24.04 LTS must conceal, via the session lock, information previously visible on the display with a publicly viewable image.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-200060 | AUDIT | Ubuntu 24.04 LTS must automatically terminate a user session after inactivity timeouts have expired. | capture current settings] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-200060 | AUDIT | Ubuntu 24.04 LTS must automatically terminate a user session after inactivity timeouts have expired. | remove current settings] ***
+skipping: [node1] => (item=/etc/profile.d/99-terminal_tmout.sh) 
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-200060 | PATCH | Ubuntu 24.04 LTS must automatically terminate a user session after inactivity timeouts have expired. | add profile file] ***
+changed: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-200090 | PATCH | Ubuntu 24.04 LTS must monitor remote access methods.] ***
+ok: [node1] => (item=auth(priv|).*)
+ok: [node1] => (item=daemon.*)
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-200090 | PATCH | Ubuntu 24.04 LTS must monitor remote access methods.] ***
+changed: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-200250 | WARN | Ubuntu 24.04 LTS must automatically remove or disable emergency accounts after 72 hours.] ***
+ok: [node1] => {
+    "msg": [
+        "Warning!!  Please check temporary/emergency accounts for expiration dates to be 72 hours or less.",
+        "To do this please run sudo chage -l account_name for the accounts you need to check",
+        "The results will display the Account Expires information",
+        "To set account expire run sudo chage -E `date -d \"+3 days\" +%Y-%m-%d` account_name"
+    ]
+}
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-200260 | PATCH | Ubuntu 24.04 LTS must disable account identifiers (individuals, groups, roles, and devices) after 35 days of inactivity.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-200270 | PATCH | Ubuntu 24.04 LTS must audit any script or executable called by cron as root or by any privileged user.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-200280 | Ubuntu 24.04 LTS must generate audit records for all account creations, modifications, disabling, and termination events that affect /etc/passwd.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-200290 | Ubuntu 24.04 LTS must generate audit records for all account creations, modifications, disabling, and termination events that affect /etc/group.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-200300 | Ubuntu 24.04 LTS must generate audit records for all account creations, modifications, disabling, and termination events that affect /etc/shadow.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-200310 | Ubuntu 24.04 LTS must generate audit records for all account creations, modifications, disabling, and termination events that affect /etc/gshadow.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-200320 | Ubuntu 24.04 LTS must generate audit records for all account creations, modifications, disabling, and termination events that affect /etc/opasswd.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-200580 | Ubuntu 24.04 LTS must prevent all software from executing at higher privilege levels than users executing the software and the audit system must be configured to audit the execution of privileged functions.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-200640 | PATCH | Ubuntu 24.04 LTS must display the Standard Mandatory DOD Notice and Consent Banner before granting access to via an SSH logon. | sshd_config] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-200640 | PATCH | Ubuntu 24.04 LTS must display the Standard Mandatory DOD Notice and Consent Banner before granting access to via an SSH logon. | Set banner message] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-200650 | PATCH | Ubuntu 24.04 LTS must display the Standard Mandatory DOD Notice and Consent Banner before granting local access to the system via a graphical user logon.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-200660 | PATCH | Ubuntu 24.04 LTS must enable the graphical user logon banner to display the Standard Mandatory DOD Notice and Consent Banner before granting local access to the system via a graphical user logon.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-200680 | PATCH | Ubuntu 24.04 LTS must be configured to enforce the acknowledgement of the Standard Mandatory DOD Notice and Consent Banner for all SSH connections.] ***
+changed: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300006 | AUDIT | Ubuntu 24.04 LTS library files must have mode 0755 or less permissive. | Discover] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300006 | PATCH | Ubuntu 24.04 LTS library files must have mode 0755 or less permissive. | Fix] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300006 | WARN | Ubuntu 24.04 LTS library files must have mode 0755 or less permissive. | Warning] ***
+ok: [node1] => {
+    "msg": "Warning!! The following library files permissions are not correct please investigate []"
+}
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300006 | WARN | Set fact for manual task warning.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300007 | AUDIT | Ubuntu 24.04 LTS library files must be owned by root. | Discover] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300007 | PATCH | Ubuntu 24.04 LTS library files must be owned by root. | Fix] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300007 | AUDIT | Ubuntu 24.04 LTS library files must be owned by root. | Warning] ***
+ok: [node1] => {
+    "msg": "Warning!! The following library files are not owned by root please investigate []"
+}
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300007 | WARN | Set fact for manual task warning.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300008 | AUDIT | Ubuntu 24.04 LTS library directories must be owned by root. | Discover] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300008 | PATCH | Ubuntu 24.04 LTS library directories must be owned by root. | Fix] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300008 | AUDIT | Ubuntu 24.04 LTS library directories must be owned by root. | Warning] ***
+ok: [node1] => {
+    "msg": "Warning!! The following library directories are not owned by root please investigate []"
+}
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300008 | WARN | Set fact for manual task warning.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300009 | AUDIT | Ubuntu 24.04 LTS library files must be group-owned by root or system account. | Discover] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300009 | PATCH | Ubuntu 24.04 LTS library files must be group-owned by root or system account. | Secure if not root or system acct] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300009 | AUDIT | Ubuntu 24.04 LTS library files must be group-owned by root or system account. | Warning] ***
+ok: [node1] => {
+    "msg": "Warning!! The following library files are not group-owned by root or system account please investigate []"
+}
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300009 | WARN | Set fact for manual task warning.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300010 | AUDIT | Ubuntu 24.04 LTS library directories must be group-owned by root. | Discover] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300010 | PATCH | Ubuntu 24.04 LTS library directories must be group-owned by root. | Fix] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300010 | AUDIT | Ubuntu 24.04 LTS library directories must be group-owned by root. | Warning] ***
+ok: [node1] => {
+    "msg": "Warning!! The following library directories are not group owned by root please investigate []"
+}
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300010 | WARN | Set fact for manual task warning.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300011 | AUDIT | Ubuntu 24.04 LTS must have system commands set to a mode of 755 or less permissive. | Discover] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300011 | PATCH | Ubuntu 24.04 LTS must have system commands set to a mode of 755 or less permissive. | Fix] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300011 | WARN | Ubuntu 24.04 LTS must have system commands set to a mode of 755 or less permissive. | Warning] ***
+ok: [node1] => {
+    "msg": "Warning!! The following system commands permissions need adjusting please investigate []"
+}
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300011 | WARN | Set fact for manual task warning.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300012 | AUDIT | Ubuntu 24.04 LTS must have system commands owned by root or a system account. | Discover] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300012 | PATCH | Ubuntu 24.04 LTS must have system commands owned by root or a system account. | Secure if not root or system acct] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300012 | AUDIT | Ubuntu 24.04 LTS must have system commands owned by root or a system account. | Warning] ***
+ok: [node1] => {
+    "msg": "Warning!! The following files are not owned by root please investigate []"
+}
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300012 | WARN | Set fact for manual task warning.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300013 | AUDIT | Ubuntu 24.04 LTS must have system commands group-owned by root or a system account. | Discover] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300013 | PATCH | Ubuntu 24.04 LTS must have system commands group-owned by root or a system account. | Secure if not root or system acct] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300013 | AUDIT | Ubuntu 24.04 LTS must have system commands group-owned by root or a system account. | Warning] ***
+ok: [node1] => {
+    "msg": "Warning!! The following files are not owned by root please investigate []"
+}
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300013 | WARN | Set fact for manual task warning.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300014 | PATCH | Ubuntu 24.04 LTS must prevent the use of dictionary words for passwords.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300016 | PATCH | Ubuntu 24.04 LTS must be configured so that when passwords are changed or new passwords are established, pwquality must be used.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300019 | PATCH | Ubuntu 24.04 LTS must restrict privilege elevation to authorized personnel.] ***
+ok: [node1] => (item=/etc/sudoers)
+ok: [node1] => (item=/etc/sudoers.d/README)
+ok: [node1] => (item=/etc/sudoers.d/90-cloud-init-users)
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300020 | AUDIT | Ubuntu 24.04 LTS must require users to provide a password for privilege escalation. | find] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300020 | PATCH | Ubuntu 24.04 LTS must require users to provide a password for privilege escalation. | patch] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300021 | AUDIT | Ubuntu 24.04 LTS must require users to reauthenticate for privilege escalation or when changing roles. | capture config] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300021 | PATCH | Ubuntu 24.04 LTS must require users to reauthenticate for privilege escalation or when changing roles.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300023 | PATCH | Ubuntu 24.04 LTS SSH daemon must prevent remote hosts from connecting to the proxy display.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300029 | Ubuntu 24.04 LTS must generate audit records for all events that affect the systemd journal files.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300030 | PATCH | Ubuntu 24.04 LTS default filesystem permissions must be defined in such a way that all authenticated users can read and modify only their own files.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300039 | PATCH | Ubuntu 24.04 LTS must disable automatic mounting of Universal Serial Bus (USB) mass storage driver.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300041 | WARN | Ubuntu 24.04 LTS must be configured to prohibit or restrict the use of functions, ports, protocols, and/or services, as defined in the PPSM CAL and vulnerability assessments. | warning] ***
+ok: [node1] => {
+    "msg": "Warning!! Please investigate ufw ruling matches site policy run the command ```sudo ufw show raw```"
+}
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-300041 | WARN | Set fact for manual task warning.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-400000 | AUDIT | Ubuntu 24.04 LTS must uniquely identify interactive users. | Check for duplicate UIDs] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-400000 | WARN | Ubuntu 24.04 LTS must uniquely identify interactive users. | Print warning about users with duplicate UIDs] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-400000 | WARN | Set fact for manual task warning.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-400020 | AUDIT | Ubuntu 24.04 LTS must implement smart card logins for multifactor authentication for local and network access to privileged and nonprivileged accounts. | Check common-auth] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-400020 | PATCH | Ubuntu 24.04 LTS must implement smart card logins for multifactor authentication for local and network access to privileged and nonprivileged accounts. | add pkcs] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-400030 | PATCH | Ubuntu 24.04 LTS must implement smart card logins for multifactor authentication for local and network access to privileged and nonprivileged accounts over SSH.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-400060 | AUDIT | Ubuntu 24.04 LTS must electronically verify personal identity verification (PIV) credentials. | find current settings] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-400060 | PATCH | Ubuntu 24.04 LTS must electronically verify personal identity verification (PIV) credentials. | change where needed] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-400110 | PATCH | Ubuntu 24.04 LTS must prevent direct login into the root account.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-400220 | AUDIT | Ubuntu 24.04 LTS must store only encrypted representations of passwords. | get current setting] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-400220 | AUDIT | Ubuntu 24.04 LTS must store only encrypted representations of passwords. | replace current setting if incorrect] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-400220 | PATCH | Ubuntu 24.04 LTS must store only encrypted representations of passwords.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-400260 | PATCH | Ubuntu 24.04 LTS must enforce password complexity by requiring at least one uppercase character be used.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-400270 | PATCH | Ubuntu 24.04 LTS must enforce password complexity by requiring at least one lowercase character be used.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-400280 | PATCH | Ubuntu 24.04 LTS must enforce password complexity by requiring that at least one numeric character be used.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-400290 | PATCH | Ubuntu 24.04 LTS must require the change of at least eight characters when passwords are changed.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-400300 | PATCH | Ubuntu 24.04 LTS must enforce 24 hours/one day as the minimum password lifetime. Passwords for new users must have a 24 hours/one day minimum password lifetime restriction.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-400310 | PATCH | Ubuntu 24.04 LTS must enforce a 60-day maximum password lifetime restriction. Passwords for new users must have a 60-day maximum password lifetime restriction.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-400320 | PATCH | Ubuntu 24.04 LTS must enforce a minimum 15-character password length.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-400330 | PATCH | Ubuntu 24.04 LTS must enforce password complexity by requiring that at least one special character be used.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-400375 | AUDIT | Ubuntu 24.04 LTS, for PKI-based authentication, Privileged Access Management (PAM) must validate certificates by constructing a certification path (which includes status information) to an accepted trust anchor. | find current settings] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-400375 | PATCH | Ubuntu 24.04 LTS, for PKI-based authentication, Privileged Access Management (PAM) must validate certificates by constructing a certification path (which includes status information) to an accepted trust anchor. | change where needed] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-400380 | AUDIT | Ubuntu 24.04 LTS for PKI-based authentication, must implement a local cache of revocation data in case of the inability to access revocation information via the network. | find current settings] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-400380 | PATCH | Ubuntu 24.04 LTS for PKI-based authentication, must implement a local cache of revocation data in case of the inability to access revocation information via the network. | change where needed] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-400380 | PATCH | Ubuntu 24.04 LTS for PKI-based authentication, must implement a local cache of revocation data in case of the inability to access revocation information via the network. | change where needed] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-400400 | PATCH | Ubuntu 24.04 LTS must store only encrypted representations of passwords.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-500010 | Ubuntu 24.04 LTS must generate audit records for privileged activities, nonlocal maintenance, diagnostic sessions and other system-level access.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-500050 | PATCH | Ubuntu 24.04 LTS must use strong authenticators in establishing nonlocal maintenance and diagnostic sessions] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-600000 | PATCH | Ubuntu 24.04 LTS must immediately terminate all network connections associated with SSH traffic after a period of inactivity.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-600010 | PATCH | Ubuntu 24.04 LTS must immediately terminate all network connections associated with SSH traffic at the end of the session or after 10 minutes of inactivity.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-600060 | AUDIT | Ubuntu 24.04 LTS must use DOD PKI-established certificate authorities (CAs) for verification of the establishment of protected sessions.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-600060 | AUDIT | Ubuntu 24.04 LTS must use DOD PKI-established certificate authorities (CAs) for verification of the establishment of protected sessions. | warning] ***
+ok: [node1] => {
+    "msg": "Warning!! Please add the DOD certificate authority files and dpkg-reconfigure ca-certificates "
+}
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-600060 | WARN | Set fact for manual task warning.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-600070 | PATCH | Ubuntu 24.04 LTS must disable kernel core dumps. | stop if installed] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-600070 | PATCH | Ubuntu 24.04 LTS must disable kernel core dumps. | mask] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-600090 | AUDIT | Ubuntu 24.04 LTS handling data requiring "data at rest" protections must employ cryptographic mechanisms to prevent unauthorized disclosure and modification of the information at rest. | Get encrypted partitions] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-600090 | AUDIT | Ubuntu 24.04 LTS handling data requiring "data at rest" protections must employ cryptographic mechanisms to prevent unauthorized disclosure and modification of the information at rest. | Alert no partitions are encrypted] ***
+ok: [node1] => {
+    "msg": "Warning!! There are no encrypted partitions. Please make sure all permanent partitions are encrypted"
+}
+
+TASK [UBUNTU24-STIG : UBTU-24-600090 | WARN | Set fact for manual task warning.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-600090 | AUDIT | Ubuntu 24.04 LTS handling data requiring "data at rest" protections must employ cryptographic mechanisms to prevent unauthorized disclosure and modification of the information at rest. | Alert no partitions are encrypted] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : UBTU-24-600090 | WARN | Set fact for manual task warning.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-600150 | AUDIT | Ubuntu 24.04 LTS must set a sticky bit on all public directories to prevent unauthorized and unintended information transferred via shared system resources.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-600150 | PATCH | Ubuntu 24.04 LTS must set a sticky bit on all public directories to prevent unauthorized and unintended information transferred via shared system resources.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-600150 | WARN | Ubuntu 24.04 LTS must set a sticky bit on all public directories to prevent unauthorized and unintended information transferred via shared system resources.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-600150 | WARN | Set fact for manual task warning.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-600190 | PATCH | Ubuntu 24.04 LTS must be configured to use TCP syncookies. | find file with current settings] ***
+[WARNING]: Skipped '/run/sysctl.d' path due to this access issue:
+'/run/sysctl.d' is not a directory
+[WARNING]: Skipped '/usr/local/lib/sysctl.d' path due to this access issue:
+'/usr/local/lib/sysctl.d' is not a directory
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-600190 | PATCH | Ubuntu 24.04 LTS must be configured to use TCP syncookies. | remove current settings] ***
+skipping: [node1] => (item={'path': '/etc/sysctl.d/stig_kernel.conf', 'mode': '0600', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 78, 'inode': 117, 'dev': 66305, 'nlink': 1, 'atime': 1787508460.1418765, 'mtime': 1787508460.1398764, 'ctime': 1787508460.1408765, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': False, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False}) 
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-600190 | PATCH | Ubuntu 24.04 LTS must be configured to use TCP syncookies. | ensure setting on correct file] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-600200 | AUDIT | Ubuntu 24.04 LTS must configure the uncomplicated firewall to rate-limit impacted network interfaces. | discover status] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-600200 | PATCH | Ubuntu 24.04 LTS must configure the uncomplicated firewall to rate-limit impacted network interfaces. | discover status] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-600200 | WARN | Ubuntu 24.04 LTS must configure the uncomplicated firewall to rate-limit impacted network interfaces. | warning] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-600200 | WARN | Set fact for manual task warning.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-600230 | PATCH | Ubuntu 24.04 LTS must disable all wireless network adapters. | Create modprobe.d file] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-600230 | PATCH | Ubuntu 24.04 LTS must disable all wireless network adapters. | blacklist] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700010 | AUDIT | Ubuntu 24.04 LTS must generate error messages that provide information necessary for corrective actions without revealing information that could be exploited by adversaries. | find files] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700010 | PATCH | Ubuntu 24.04 LTS must generate error messages that provide information necessary for corrective actions without revealing information that could be exploited by adversaries. | change permissions] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700010 | WARN | Ubuntu 24.04 LTS must generate error messages that provide information necessary for corrective actions without revealing information that could be exploited by adversaries. | Warning] ***
+ok: [node1] => {
+    "msg": "Warning!! The following log files permissions are not correct please investigate []"
+}
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700010 | WARN | Set fact for manual task warning.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700020 | AUDIT | Ubuntu 24.04 LTS must generate system journal entries without revealing information that could be exploited by adversaries. | find files] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700020 | PATCH | Ubuntu 24.04 LTS must generate system journal entries without revealing information that could be exploited by adversaries. | change permissions] ***
+skipping: [node1] => (item={'regexp': '^z \\/run\\/log\\/journal (\\d{4,}) (\\b.*\\b) (\\b.*\\b) - -', 'line': 'z /run/log/journal 2640 \\2 \\3 - -'}) 
+skipping: [node1] => (item={'regexp': '^Z \\/run\\/log\\/journal\\/%m (~\\d{4,}) (\\b.*\\b) (\\b.*\\b) - -', 'line': 'Z /run/log/journal/%m ~2640 \\2 \\3 - -'}) 
+skipping: [node1] => (item={'regexp': '^z \\/var\\/log\\/journal (\\d{4,}) (\\b.*\\b) (\\b.*\\b) - -', 'line': 'z /var/log/journal 2640 \\2 \\3 - -'}) 
+skipping: [node1] => (item={'regexp': '^z \\/var\\/log\\/journal\\/%m (\\d{4,}) (\\b.*\\b) (\\b.*\\b) - -', 'line': 'z /var/log/journal/%m 2640 \\2 \\3 - -'}) 
+skipping: [node1] => (item={'regexp': '^z \\/var\\/log\\/journal\\/%m/system.journal (\\d{4,}) (\\b.*\\b) (\\b.*\\b) - -', 'line': 'z /var/log/journal/%m/system.journal 0640 \\2 \\3 - -'}) 
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700020 | WARN | Ubuntu 24.04 LTS must generate system journal entries without revealing information that could be exploited by adversaries. | Warning] ***
+ok: [node1] => {
+    "msg": "Warning!! The following journal files permissions are not correct please investigate ['/run/log/journal 2755', '/var/log/journal 2755', '/var/log/journal/7441b578b98c43f5a7e00945b1f3d3b4 640']"
+}
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700020 | WARN | Set fact for manual task warning.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700030 | PATCH | Ubuntu 24.04 LTS must be configured so that the "journalctl" command is not accessible by unauthorized users.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700040 | PATCH | Ubuntu 24.04 LTS must be configured so that the "journalctl" command is owned by "root".] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700050 | PATCH | Ubuntu 24.04 LTS must be configured so that the "journalctl" command is group-owned by "root".] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700060 | AUDIT | Ubuntu 24.04 LTS must configure the directories used by the system journal to be group-owned by "systemd-journal". | find files] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700060 | PATCH | Ubuntu 24.04 LTS must configure the directories used by the system journal to be group-owned by "systemd-journal". | change permissions] ***
+skipping: [node1] => (item={'regexp': '^z \\/run\\/log\\/journal (\\d{4,}) (\\b.*\\b) (\\b.*\\b) - -', 'line': 'z /run/log/journal \\1 \\2 systemd-journal - -'}) 
+skipping: [node1] => (item={'regexp': '^z \\/var\\/log\\/journal (\\d{4,}) (\\b.*\\b) (\\b.*\\b) - -', 'line': 'z /var/log/journal \\1 \\2 systemd-journal - -'}) 
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700070 | AUDIT | Ubuntu 24.04 LTS must configure the files used by the system journal to be group-owned by "systemd-journal" | find files] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700070 | PATCH | Ubuntu 24.04 LTS must configure the files used by the system journal to be group-owned by "systemd-journal" | change permissions] ***
+skipping: [node1] => (item={'regexp': '^Z \\/run\\/log\\/journal\\/%m (~\\d{4,}) (\\b.*\\b) (\\b.*\\b) - -', 'line': 'Z /run/log/journal/%m \\1 \\2 systemd-journal - -'}) 
+skipping: [node1] => (item={'regexp': '^z \\/var\\/log\\/journal\\/%m (\\d{4,}) (\\b.*\\b) (\\b.*\\b) - -', 'line': 'z /var/log/journal/%m \\1 \\2 systemd-journal - -'}) 
+skipping: [node1] => (item={'regexp': '^z \\/var\\/log\\/journal\\/%m\\/system.journal (\\d{4,}) (\\b.*\\b) (\\b.*\\b) - -', 'line': 'z /var/log/journal/%m/system.journal \\1 \\2 systemd-journal - -'}) 
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700080 | AUDIT | Ubuntu 24.04 LTS must configure the directories used by the system journal to be owned by root. | find files] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700080 | PATCH | Ubuntu 24.04 LTS must configure the directories used by the system journal to be owned by root. | change permissions] ***
+skipping: [node1] => (item={'regexp': '^z \\/run\\/log\\/journal (\\d{4,}) (\\b.*\\b) (\\b.*\\b) - -', 'line': 'z /run/log/journal \\1 root \\3 - -'}) 
+skipping: [node1] => (item={'regexp': '^z \\/var\\/log\\/journal (\\d{4,}) (\\b.*\\b) (\\b.*\\b) - -', 'line': 'z /var/log/journal \\1 root \\3 - -'}) 
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700090 | AUDIT | Ubuntu 24.04 LTS must configure the files used by the system journal to be owned by "root". | find files] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700090 | PATCH | Ubuntu 24.04 LTS must configure the files used by the system journal to be owned by "root". | change permissions"] ***
+skipping: [node1] => (item={'regexp': '^Z \\/run\\/log\\/journal\\/%m (~\\d{4,}) (\\b.*\\b) (\\b.*\\b) - -', 'line': 'Z /run/log/journal/%m \\1 root \\3 - -'}) 
+skipping: [node1] => (item={'regexp': '^z \\/var\\/log\\/journal\\/%m (\\d{4,}) (\\b.*\\b) (\\b.*\\b) - -', 'line': 'z /var/log/journal/%m \\1 root \\3 - -'}) 
+skipping: [node1] => (item={'regexp': '^z \\/var\\/log\\/journal\\/%m\\/system.journal (\\d{4,}) (\\b.*\\b) (\\b.*\\b) - -', 'line': 'z /var/log/journal/%m/system.journal \\1 root \\3 - -'}) 
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700100 | PATCH | Ubuntu 24.04 LTS must configure the /var/log directory to be group-owned by syslog.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700110 | PATCH | Ubuntu 24.04 LTS must configure the /var/log directory to be owned by root.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700120 | PATCH | Ubuntu 24.04 LTS must configure the /var/log directory to have mode "0755" or less permissive.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700130 | PATCH | Ubuntu 24.04 LTS must configure /var/log/syslog file to be group-owned by "adm".] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700140 | PATCH | Ubuntu 24.04 LTS must configure "/var/log/syslog" file to be owned by "syslog".] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700150 | PATCH | Ubuntu 24.04 LTS must configure /var/log/syslog file with mode "0640" or less permissive.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700300 | AUDIT | Ubuntu 24.04 LTS must implement nonexecutable data to protect its memory from unauthorized code execution.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700300 | AUDIT | Ubuntu 24.04 LTS must implement nonexecutable data to protect its memory from unauthorized code execution. | Dmesg Does Not Contain NX (Execute Disable) protection active.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700300 | WARN | Ubuntu 24.04 LTS must implement nonexecutable data to protect its memory from unauthorized code execution. | Warning Out.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700300 | WARN | Set fact for manual task warning.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700310 | PATCH | Ubuntu 24.04 LTS must implement address space layout randomization to protect its memory from unauthorized code execution | find existing settings] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700310 | PATCH | Ubuntu 24.04 LTS must implement address space layout randomization to protect its memory from unauthorized code execution | remove existing bad settings] ***
+ok: [node1] => (item=/etc/sysctl.d/stig_kernel.conf)
+ok: [node1] => (item=/etc/sysctl.conf)
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700310 | PATCH | Ubuntu 24.04 LTS must implement address space layout randomization to protect its memory from unauthorized code execution | add file specific settings] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-700320 | PATCH | Ubuntu 24.04 LTS must be configured so that the Advance Package Tool (APT) removes all software components after updated versions have been installed.] ***
+ok: [node1] => (item={'regexp': 'Unattended-Upgrade::Remove-Unused-Kernel-Packages', 'line': 'Unattended-Upgrade::Remove-Unused-Kernel-Packages "true";'})
+ok: [node1] => (item={'regexp': 'Unattended-Upgrade::Remove-Unused-Dependencies', 'line': 'Unattended-Upgrade::Remove-Unused-Dependencies "true";'})
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900040 | AUDIT | Ubuntu 24.04 LTS must be configured so that audit configuration files are not write-accessible by unauthorized users.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900040 | PATCH | Ubuntu 24.04 LTS must be configured so that audit configuration files are not write-accessible by unauthorized users.] ***
+ok: [node1] => (item={'path': '/etc/audit/audit.rules.prev', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 107, 'inode': 559538, 'dev': 66305, 'nlink': 1, 'atime': 1787508479.1263084, 'mtime': 1787508479.1273084, 'ctime': 1787508479.1273084, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/zos-remote.conf', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 246, 'inode': 560870, 'dev': 66305, 'nlink': 1, 'atime': 1787508441.9514914, 'mtime': 1727872850.0, 'ctime': 1787508441.9514914, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/audisp-remote.conf', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 751, 'inode': 560867, 'dev': 66305, 'nlink': 1, 'atime': 1787508479.111308, 'mtime': 1727872850.0, 'ctime': 1787508441.9254909, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/audit.rules', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 5197, 'inode': 559684, 'dev': 66305, 'nlink': 1, 'atime': 1787508479.1303086, 'mtime': 1787508479.1283085, 'ctime': 1787508479.1283085, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/audit-stop.rules', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 127, 'inode': 559702, 'dev': 66305, 'nlink': 1, 'atime': 1787508249.0874088, 'mtime': 1727872850.0, 'ctime': 1787508249.0874088, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/auditd.conf', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 885, 'inode': 560879, 'dev': 66305, 'nlink': 1, 'atime': 1787508528.4120753, 'mtime': 1787508523.4332376, 'ctime': 1787508523.4332376, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/plugins.d/au-remote.conf', 'mode': '0600', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 238, 'inode': 560852, 'dev': 66305, 'nlink': 1, 'atime': 1787508479.109308, 'mtime': 1787508444.6625485, 'ctime': 1787508444.6635487, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': False, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/plugins.d/audisp-remote.conf', 'mode': '0600', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 28, 'inode': 560861, 'dev': 66305, 'nlink': 1, 'atime': 1787508479.109308, 'mtime': 1787508445.5125666, 'ctime': 1787508445.5125666, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': False, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/plugins.d/af_unix.conf', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 359, 'inode': 559705, 'dev': 66305, 'nlink': 1, 'atime': 1787508249.7764237, 'mtime': 1727872850.0, 'ctime': 1787508249.1064093, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/plugins.d/audispd-zos-remote.conf', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 434, 'inode': 560869, 'dev': 66305, 'nlink': 1, 'atime': 1787508479.109308, 'mtime': 1727872850.0, 'ctime': 1787508441.9434912, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/plugins.d/syslog.conf', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 521, 'inode': 559706, 'dev': 66305, 'nlink': 1, 'atime': 1787508249.7764237, 'mtime': 1727872850.0, 'ctime': 1787508249.1154094, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/rules.d/stig.rules', 'mode': '0600', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 6636, 'inode': 560480, 'dev': 66305, 'nlink': 1, 'atime': 1787508479.1243083, 'mtime': 1787508469.5810747, 'ctime': 1787508470.3260906, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': False, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/rules.d/audit.rules', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 244, 'inode': 559708, 'dev': 66305, 'nlink': 1, 'atime': 1787508249.1644106, 'mtime': 1727872850.0, 'ctime': 1787508249.1244097, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900050 | AUDIT | Ubuntu 24.04 LTS must permit only authorized accounts to own the audit configuration files.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900050 | PATCH | Ubuntu 24.04 LTS must permit only authorized accounts to own the audit configuration files.] ***
+ok: [node1] => (item={'path': '/etc/audit/audit.rules.prev', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 107, 'inode': 559538, 'dev': 66305, 'nlink': 1, 'atime': 1787508479.1263084, 'mtime': 1787508479.1273084, 'ctime': 1787508479.1273084, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/zos-remote.conf', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 246, 'inode': 560870, 'dev': 66305, 'nlink': 1, 'atime': 1787508441.9514914, 'mtime': 1727872850.0, 'ctime': 1787508441.9514914, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/audisp-remote.conf', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 751, 'inode': 560867, 'dev': 66305, 'nlink': 1, 'atime': 1787508479.111308, 'mtime': 1727872850.0, 'ctime': 1787508441.9254909, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/audit.rules', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 5197, 'inode': 559684, 'dev': 66305, 'nlink': 1, 'atime': 1787508479.1303086, 'mtime': 1787508479.1283085, 'ctime': 1787508479.1283085, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/audit-stop.rules', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 127, 'inode': 559702, 'dev': 66305, 'nlink': 1, 'atime': 1787508249.0874088, 'mtime': 1727872850.0, 'ctime': 1787508249.0874088, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/auditd.conf', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 885, 'inode': 560879, 'dev': 66305, 'nlink': 1, 'atime': 1787508528.4120753, 'mtime': 1787508523.4332376, 'ctime': 1787508523.4332376, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/plugins.d/au-remote.conf', 'mode': '0600', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 238, 'inode': 560852, 'dev': 66305, 'nlink': 1, 'atime': 1787508479.109308, 'mtime': 1787508444.6625485, 'ctime': 1787508444.6635487, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': False, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/plugins.d/audisp-remote.conf', 'mode': '0600', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 28, 'inode': 560861, 'dev': 66305, 'nlink': 1, 'atime': 1787508479.109308, 'mtime': 1787508445.5125666, 'ctime': 1787508445.5125666, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': False, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/plugins.d/af_unix.conf', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 359, 'inode': 559705, 'dev': 66305, 'nlink': 1, 'atime': 1787508249.7764237, 'mtime': 1727872850.0, 'ctime': 1787508249.1064093, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/plugins.d/audispd-zos-remote.conf', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 434, 'inode': 560869, 'dev': 66305, 'nlink': 1, 'atime': 1787508479.109308, 'mtime': 1727872850.0, 'ctime': 1787508441.9434912, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/plugins.d/syslog.conf', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 521, 'inode': 559706, 'dev': 66305, 'nlink': 1, 'atime': 1787508249.7764237, 'mtime': 1727872850.0, 'ctime': 1787508249.1154094, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/rules.d/stig.rules', 'mode': '0600', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 6636, 'inode': 560480, 'dev': 66305, 'nlink': 1, 'atime': 1787508479.1243083, 'mtime': 1787508469.5810747, 'ctime': 1787508470.3260906, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': False, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/rules.d/audit.rules', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 244, 'inode': 559708, 'dev': 66305, 'nlink': 1, 'atime': 1787508249.1644106, 'mtime': 1727872850.0, 'ctime': 1787508249.1244097, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900060 | AUDIT | Ubuntu 24.04 LTS must permit only authorized groups to own the audit configuration files.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900060 | PATCH | Ubuntu 24.04 LTS must permit only authorized groups to own the audit configuration files.] ***
+ok: [node1] => (item={'path': '/etc/audit/audit.rules.prev', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 107, 'inode': 559538, 'dev': 66305, 'nlink': 1, 'atime': 1787508479.1263084, 'mtime': 1787508479.1273084, 'ctime': 1787508479.1273084, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/zos-remote.conf', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 246, 'inode': 560870, 'dev': 66305, 'nlink': 1, 'atime': 1787508441.9514914, 'mtime': 1727872850.0, 'ctime': 1787508441.9514914, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/audisp-remote.conf', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 751, 'inode': 560867, 'dev': 66305, 'nlink': 1, 'atime': 1787508479.111308, 'mtime': 1727872850.0, 'ctime': 1787508441.9254909, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/audit.rules', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 5197, 'inode': 559684, 'dev': 66305, 'nlink': 1, 'atime': 1787508479.1303086, 'mtime': 1787508479.1283085, 'ctime': 1787508479.1283085, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/audit-stop.rules', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 127, 'inode': 559702, 'dev': 66305, 'nlink': 1, 'atime': 1787508249.0874088, 'mtime': 1727872850.0, 'ctime': 1787508249.0874088, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/auditd.conf', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 885, 'inode': 560879, 'dev': 66305, 'nlink': 1, 'atime': 1787508528.4120753, 'mtime': 1787508523.4332376, 'ctime': 1787508523.4332376, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/plugins.d/au-remote.conf', 'mode': '0600', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 238, 'inode': 560852, 'dev': 66305, 'nlink': 1, 'atime': 1787508479.109308, 'mtime': 1787508444.6625485, 'ctime': 1787508444.6635487, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': False, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/plugins.d/audisp-remote.conf', 'mode': '0600', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 28, 'inode': 560861, 'dev': 66305, 'nlink': 1, 'atime': 1787508479.109308, 'mtime': 1787508445.5125666, 'ctime': 1787508445.5125666, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': False, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/plugins.d/af_unix.conf', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 359, 'inode': 559705, 'dev': 66305, 'nlink': 1, 'atime': 1787508249.7764237, 'mtime': 1727872850.0, 'ctime': 1787508249.1064093, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/plugins.d/audispd-zos-remote.conf', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 434, 'inode': 560869, 'dev': 66305, 'nlink': 1, 'atime': 1787508479.109308, 'mtime': 1727872850.0, 'ctime': 1787508441.9434912, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/plugins.d/syslog.conf', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 521, 'inode': 559706, 'dev': 66305, 'nlink': 1, 'atime': 1787508249.7764237, 'mtime': 1727872850.0, 'ctime': 1787508249.1154094, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/rules.d/stig.rules', 'mode': '0600', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 6636, 'inode': 560480, 'dev': 66305, 'nlink': 1, 'atime': 1787508479.1243083, 'mtime': 1787508469.5810747, 'ctime': 1787508470.3260906, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': False, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/etc/audit/rules.d/audit.rules', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 244, 'inode': 559708, 'dev': 66305, 'nlink': 1, 'atime': 1787508249.1644106, 'mtime': 1727872850.0, 'ctime': 1787508249.1244097, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900070 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful uses of the su command.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900080 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful uses of the chfn command.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900090 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful uses of the mount command.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900100 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful uses of the umount command.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900110 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful uses of the ssh-agent command.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900120 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful uses of the ssh-keysign command.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900130 | Ubuntu 24.04 LTS must generate audit records for any use of the setxattr, fsetxattr, lsetxattr, removexattr, fremovexattr, and lremovexattr system calls.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900140 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful uses of the chown, fchown, fchownat, and lchown system calls.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900150 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful uses of the chmod, fchmod, and fchmodat system calls.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900160 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful uses of the creat, open, openat, open_by_handle_at, truncate, and ftruncate system calls.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900170 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful uses of the sudo command.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900180 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful uses of the sudoedit command.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900190 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful uses of the chsh command.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900200 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful uses of the newgrp command.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900210 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful uses of the chcon command.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900220 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful uses of the apparmor_parser command.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900230 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful uses of the setfacl command.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900240 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful uses of the chacl command.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900250 | Ubuntu 24.04 LTS must generate audit records for the use and modification of faillog file.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900260 | Ubuntu 24.04 LTS must generate audit records for the use and modification of the lastlog file.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900270 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful uses of the passwd command.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900280 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful uses of the unix_update command.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900290 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful uses of the gpasswd command.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900300 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful uses of the chage command.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900310 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful uses of the usermod command.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900320 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful uses of the crontab command.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900330 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful uses of the pam_timestamp_check command.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900340 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful uses of the init_module and finit_module system calls.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900350 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful uses of the delete_module system call.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900510 | Ubuntu 24.04 LTS must generate audit records when successful/unsuccessful attempts to modify the /etc/sudoers file occur.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900520 | Ubuntu 24.04 LTS must generate audit records when successful/unsuccessful attempts to modify the /etc/sudoers.d directory occur.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900540 | Ubuntu 24.04 LTS must generate audit records for any successful/unsuccessful use of unlink, unlinkat, rename, renameat, and rmdir system calls.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900590 | Ubuntu 24.04 LTS must generate audit records for the /var/log/wtmp file.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900600 | Ubuntu 24.04 LTS must generate audit records for the /var/run/utmp file.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900610 | Ubuntu 24.04 LTS must generate audit records for the /var/log/btmp file.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900730 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful attempts to use modprobe command.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900740 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful attempts to use the kmod command.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-900750 | Ubuntu 24.04 LTS must generate audit records for successful/unsuccessful attempts to use the fdisk command.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-901230 | PATCH | Ubuntu 24.04 LTS must configure audit tools with a mode of "755" or less permissive.] ***
+skipping: [node1] => (item=/sbin/auditctl) 
+skipping: [node1] => (item=/sbin/aureport) 
+skipping: [node1] => (item=/sbin/ausearch) 
+skipping: [node1] => (item=/sbin/autrace) 
+skipping: [node1] => (item=/sbin/auditd) 
+skipping: [node1] => (item=/sbin/augenrules) 
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-901240 | PATCH | Ubuntu 24.04 LTS must configure audit tools to be owned by root.] ***
+skipping: [node1] => (item=/sbin/auditctl) 
+skipping: [node1] => (item=/sbin/aureport) 
+skipping: [node1] => (item=/sbin/ausearch) 
+skipping: [node1] => (item=/sbin/autrace) 
+skipping: [node1] => (item=/sbin/auditd) 
+skipping: [node1] => (item=/sbin/augenrules) 
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-901250 | PATCH | Ubuntu 24.04 LTS must configure audit tools to be group-owned by root.] ***
+skipping: [node1] => (item=/sbin/auditctl) 
+skipping: [node1] => (item=/sbin/aureport) 
+skipping: [node1] => (item=/sbin/ausearch) 
+skipping: [node1] => (item=/sbin/autrace) 
+skipping: [node1] => (item=/sbin/auditd) 
+skipping: [node1] => (item=/sbin/augenrules) 
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-901260 | AUDIT | Ubuntu 24.04 LTS must have directories that contain system commands set to a mode of "755" or less permissive. | Discover] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-901260 | PATCH | Ubuntu 24.04 LTS must have directories that contain system commands set to a mode of "755" or less permissive. | Fix] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-901260 | WARN | Ubuntu 24.04 LTS must have directories that contain system commands set to a mode of "755" or less permissive. | Warning] ***
+ok: [node1] => {
+    "msg": "Warning!! The following system directories permissions are not correct please investigate []"
+}
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-901260 | WARN | Set fact for manual task warning.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-901270 | AUDIT | Ubuntu 24.04 LTS must have directories that contain system commands owned by "root". | Discover] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-901270 | PATCH | Ubuntu 24.04 LTS must have directories that contain system commands owned by "root". | Fix] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-901270 | WARN | Ubuntu 24.04 LTS must have directories that contain system commands owned by "root". | Warning] ***
+ok: [node1] => {
+    "msg": "Warning!! The following system directory ownership is not correct please investigate []"
+}
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-901270 | WARN | Set fact for manual task warning.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-901280 | AUDIT | Ubuntu 24.04 LTS must have directories that contain system commands group-owned by "root". | Discover] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-901280 | PATCH | Ubuntu 24.04 LTS must have directories that contain system commands group-owned by "root". | Fix] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-901280 | WARN | Ubuntu 24.04 LTS must have directories that contain system commands group-owned by "root". | Warning] ***
+ok: [node1] => {
+    "msg": "Warning!! The following system directory group ownership is not correct please investigate []"
+}
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-901280 | WARN | Set fact for manual task warning.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-901300 | PATCH | Ubuntu 24.04 LTS must be configured so that audit log files are not read or write-accessible by unauthorized users. | discover file] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-901300 | PATCH | Ubuntu 24.04 LTS must be configured so that audit log files are not read or write-accessible by unauthorized users.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-901310 | PATCH | Ubuntu 24.04 LTS must be configured to permit only authorized users ownership of the audit log files. | discover file] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-901310 | PATCH |Ubuntu 24.04 LTS must be configured to permit only authorized users ownership of the audit log files.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-901350 | PATCH | Ubuntu 24.04 LTS must permit only authorized groups ownership of the audit log files.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-901380 | AUDIT | Ubuntu 24.04 LTS must be configured so that the audit log directory is not write-accessible by unauthorized users. | discover file] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-901380 | AUDIT | Ubuntu 24.04 LTS must be configured so that the audit log directory is not write-accessible by unauthorized users.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-909000 | Ubuntu 24.04 LTS audit system must protect auditing rules from unauthorized change.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : MEDIUM | UBTU-24-909890 | PATCH | Ubuntu 24.04 LTS must use cryptographic mechanisms to protect the integrity of audit tools.] ***
+ok: [node1] => (item={'regexp': '/sbin/auditctl', 'line': 'p+i+n+u+g+s+b+acl+xattrs+sha512'})
+ok: [node1] => (item={'regexp': '/sbin/auditd', 'line': 'p+i+n+u+g+s+b+acl+xattrs+sha512'})
+ok: [node1] => (item={'regexp': '/sbin/ausearch', 'line': 'p+i+n+u+g+s+b+acl+xattrs+sha512'})
+ok: [node1] => (item={'regexp': '/sbin/aureport', 'line': 'p+i+n+u+g+s+b+acl+xattrs+sha512'})
+ok: [node1] => (item={'regexp': '/sbin/autrace', 'line': 'p+i+n+u+g+s+b+acl+xattrs+sha512'})
+ok: [node1] => (item={'regexp': '/sbin/augenrules', 'line': 'p+i+n+u+g+s+b+acl+xattrs+sha512'})
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-100010 | PATCH | Ubuntu 24.04 LTS must not have the "systemd-timesyncd" package installed.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-100020 | PATCH | Ubuntu 24.04 LTS must not have the "ntp" package installed.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-100450 | PATCH | Ubuntu 24.04 LTS audit event multiplexor must be configured to offload audit logs onto a different system or storage media from the system being audited.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-100450 | PATCH | Ubuntu 24.04 LTS audit event multiplexor must be configured to offload audit logs onto a different system or storage media from the system being audited.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-100450 | PATCH | Ubuntu 24.04 LTS audit event multiplexor must be configured to offload audit logs onto a different system or storage media from the system being audited.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-100700 | PATCH | Ubuntu 24.04 LTS must have the "chrony" package installed.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-200000 | AUDIT | Ubuntu 24.04 LTS must limit the number of concurrent sessions to ten for all accounts and/or account types. | find current settings] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-200000 | PATCH | Ubuntu 24.04 LTS must limit the number of concurrent sessions to ten for all accounts and/or account types. | comment out settings] ***
+skipping: [node1] => (item={'path': '/etc/security/limits.conf', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 2772, 'inode': 560868, 'dev': 66305, 'nlink': 1, 'atime': 1787508449.3936489, 'mtime': 1787508448.6006322, 'ctime': 1787508448.6006322, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False}) 
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-200000 | PATCH | Ubuntu 24.04 LTS must limit the number of concurrent sessions to ten for all accounts and/or account types. | Ensure settings] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-200610 | AUDIT | Ubuntu 24.04 LTS must automatically lock an account until the locked account is released by an administrator when three unsuccessful logon attempts have been made.] ***
+ok: [node1] => (item={'regexp': '^(#|)\\s*audit', 'line': 'audit'})
+ok: [node1] => (item={'regexp': '^(#|)\\s*silent', 'line': 'silent'})
+ok: [node1] => (item={'regexp': '^(#|)\\s*deny', 'line': 'deny = 3'})
+ok: [node1] => (item={'regexp': '^(#|)\\s*fail_interval', 'line': 'fail_interval = 900'})
+ok: [node1] => (item={'regexp': '^(#|)\\s*unlock_time', 'line': 'unlock_time = 0'})
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-200610 | AUDIT | Ubuntu 24.04 LTS must automatically lock an account until the locked account is released by an administrator when three unsuccessful logon attempts have been made.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-300001 | AUDIT | Ubuntu 24.04 LTS must be configured so that the Advance Package Tool (APT) prevents the installation of patches, service packs, device drivers, or operating system components without verification they have been digitally signed using a certificate that is recognized and approved by the organization.] ***
+skipping: [node1] => (item={'path': '/etc/apt/sources.list', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 270, 'inode': 17, 'dev': 66305, 'nlink': 1, 'atime': 1787503576.0023868, 'mtime': 1713886138.71359, 'ctime': 1713886251.4263654, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False}) 
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-300001 | AUDIT | Ubuntu 24.04 LTS must be configured so that the Advance Package Tool (APT) prevents the installation of patches, service packs, device drivers, or operating system components without verification they have been digitally signed using a certificate that is recognized and approved by the organization.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-300017 | PATCH | Ubuntu 24.04 LTS must enforce a delay of at least four seconds between logon prompts following a failed logon attempt.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-300024 | PATCH | Ubuntu 24.04 LTS must display the date and time of the last successful account logon upon logon. | remove silent] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-300024 | PATCH | Ubuntu 24.04 LTS must display the date and time of the last successful account logon upon logon. | Add showfailed] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-400340 | AUDIT | Ubuntu 24.04 LTS must be configured such that Pluggable Authentication Module (PAM) prohibits the use of cached authentications after one day. | find current settings] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-400340 | PATCH | Ubuntu 24.04 LTS must be configured such that Pluggable Authentication Module (PAM) prohibits the use of cached authentications after one day. | comment out settings] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-400340 | PATCH | Ubuntu 24.04 LTS must be configured such that Pluggable Authentication Module (PAM) prohibits the use of cached authentications after one day. | Ensure settings exist] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-600140 | PATCH | Ubuntu 24.04 LTS must restrict access to the kernel message buffer. | find existing settings] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-600140 | PATCH | Ubuntu 24.04 LTS must restrict access to the kernel message buffer. | remove existing] ***
+skipping: [node1] => (item=/etc/sysctl.d/stig_kernel.conf) 
+ok: [node1] => (item=/etc/sysctl.conf)
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-600140 | PATCH | Ubuntu 24.04 LTS must restrict access to the kernel message buffer. | add file specific settings] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-600160 | PATCH | Ubuntu 24.04 LTS must compare internal information system clocks at least every 24 hours with an authoritative time server. | sources] ***
+ok: [node1] => (item=etc/chrony/sources.d/server.sources)
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-600160 | PATCH | Ubuntu 24.04 LTS must compare internal information system clocks at least every 24 hours with an authoritative time server. | load sources] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-600180 | PATCH | Ubuntu 24.04 LTS must synchronize internal information system clocks to the authoritative time source when the time difference is greater than one second.] ***
+changed: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-900920 | AUDIT | Ubuntu 24.04 LTS must allocate audit record storage capacity to store at least one weeks' worth of audit records, when audit records are not immediately sent to a central audit record storage facility.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-900920 | AUDIT | Ubuntu 24.04 LTS must allocate audit record storage capacity to store at least one weeks' worth of audit records, when audit records are not immediately sent to a central audit record storage facility.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-900920 | WARN | Ubuntu 24.04 LTS must allocate audit record storage capacity to store at least one weeks' worth of audit records, when audit records are not immediately sent to a central audit record storage facility.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-900920 | WARN | Set fact for manual task warning.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-900950 | AUDIT | Ubuntu 24.04 LTS must have a crontab script running weekly to offload audit events of standalone systems. | get files containing audit] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-900950 | AUDIT | Ubuntu 24.04 LTS must have a crontab script running weekly to offload audit events of standalone systems. | Warning] ***
+ok: [node1] => {
+    "msg": "Warning!! No job for auditd to have logs copied off the system have been found"
+}
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-900950 | WARN | Set fact for manual task warning.] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-900960 | PATCH | Ubuntu 24.04 LTS must immediately notify the system administrator (SA) and information system security officer (ISSO) (at a minimum) when allocated audit record storage volume reaches 75 percent of the repository maximum audit record storage capacity.] ***
+ok: [node1] => (item={'regexp': '^(#|)space_left\\s*=\\s*', 'line': 'space_left = 25%'})
+ok: [node1] => (item={'regexp': '^(#|)space_left_action\\s*=\\s*', 'line': 'space_left_action = EMAIL'})
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-900980 | PATCH | Ubuntu 24.04 LTS must alert the information system security officer (ISSO) and system administrator (SA) in the event of an audit processing failure.] ***
+changed: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-901220 | AUDIT | Ubuntu 24.04 LTS must record time stamps for audit records that can be mapped to Coordinated Universal Time (UTC) or Greenwich Mean Time (GMT). | current settings] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : LOW | UBTU-24-901220 | PATCH | Ubuntu 24.04 LTS must record time stamps for audit records that can be mapped to Coordinated Universal Time (UTC) or Greenwich Mean Time (GMT). | change if required] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : POST | AUDITD | Apply auditd template will only required rules will be added] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : Flush handlers] ******************************************
+
+RUNNING HANDLER [UBUNTU24-STIG : Restart_chrony] *******************************
+changed: [node1]
+
+RUNNING HANDLER [UBUNTU24-STIG : Restart_rsyslog] ******************************
+changed: [node1]
+
+RUNNING HANDLER [UBUNTU24-STIG : Restart_auditd] *******************************
+ok: [node1]
+
+TASK [UBUNTU24-STIG : Reboot system if not skipped] ****************************
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Warning a reboot required but skip option set] ***********
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Post Audit | Run post_remediation UBUNTU24-STIG audit] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Post Audit | Capture audit data if json format] **********
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Post Audit | Set Fact for audit summary] *****************
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Post Audit | Capture audit data if documentation format] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Post Audit | Set Fact for audit summary] *****************
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Create ansible facts directory if audit facts not present] ***
+ok: [node1]
+
+TASK [UBUNTU24-STIG : Create ansible facts file and levels applied if audit facts not present] ***
+changed: [node1]
+
+TASK [UBUNTU24-STIG : POST | FETCH | Fetch files and copy to controller] *******
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : POST | FETCH | Copy files to location available to managed node] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : POST | FETCH | Fetch files and copy to controller | Warning if issues with fetch_audit_files] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : FETCH_AUDIT_FILES | WARN | Set fact for manual task warning.] ***
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : Show Audit Summary] **************************************
+skipping: [node1]
+
+TASK [UBUNTU24-STIG : If Warnings found Output count and control IDs affected] ***
+ok: [node1] => {
+    "msg": "You have 18 Warning(s) that require investigating that are related to the following benchmark ID(s)  HIGH | UBTU-24-600030, MEDIUM | UBTU-24-300006, MEDIUM | UBTU-24-300007, MEDIUM | UBTU-24-300008, MEDIUM | UBTU-24-300009, MEDIUM | UBTU-24-300010, MEDIUM | UBTU-24-300011, MEDIUM | UBTU-24-300012, MEDIUM | UBTU-24-300013, MEDIUM | UBTU-24-300041, MEDIUM | UBTU-24-600060, UBTU-24-600090, MEDIUM | UBTU-24-700010, MEDIUM | UBTU-24-700020, MEDIUM | UBTU-24-901260, MEDIUM | UBTU-24-901270, MEDIUM | UBTU-24-901280, LOW | UBTU-24-900950,"
+}
+
+TASK [EX-001 | UBTU-24-200680 | Remove interactive SSH confirmation] ***********
+changed: [node1]
+
+PLAY [Apply Streetrack STIG remediation] ***************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [node1]
+
+TASK [Apply Streetrack custom STIG role] ***************************************
+
+TASK [streetrack_stig : UBTU-24-300028 | Remove nullok from PAM configuration] ***
+ok: [node1] => (item=/etc/pam.d/common-auth)
+ok: [node1] => (item=/etc/pam.d/common-password)
+
+TASK [streetrack_stig : UBTU-24-100310 | Ensure UFW is installed] **************
+ok: [node1]
+
+TASK [streetrack_stig : UBTU-24-100310 | Allow SSH before enabling UFW] ********
+ok: [node1]
+
+TASK [streetrack_stig : UBTU-24-100310 | Check UFW status] *********************
+ok: [node1]
+
+TASK [streetrack_stig : UBTU-24-100310 | Enable UFW] ***************************
+skipping: [node1]
+
+TASK [streetrack_stig : UBTU-24-102010 | Ensure audit=1 in GRUB_CMDLINE_LINUX] ***
+ok: [node1]
+
+TASK [streetrack_stig : UBTU-24-102010 | Ensure audit=1 in GRUB_CMDLINE_LINUX_DEFAULT] ***
+ok: [node1]
+
+TASK [streetrack_stig : UBTU-24-200060 | Set terminal inactivity timeout] ******
+changed: [node1]
+
+TASK [streetrack_stig : UBTU-24-200090 | Log authentication activity] **********
+changed: [node1]
+
+TASK [streetrack_stig : UBTU-24-200090 | Log daemon activity] ******************
+ok: [node1]
+
+TASK [streetrack_stig : UBTU-24-400220 | Correct existing password hashing rounds] ***
+ok: [node1]
+
+TASK [streetrack_stig : UBTU-24-400220 | Add password hashing rounds when absent] ***
+ok: [node1]
+
+TASK [streetrack_stig : UBTU-24-600150 | Find world-writable directories without sticky bit] ***
+ok: [node1]
+
+TASK [streetrack_stig : UBTU-24-600150 | Set sticky bit on world-writable directories] ***
+skipping: [node1]
+
+TASK [streetrack_stig : UBTU-24-700010 | Find log files with excessive permissions] ***
+ok: [node1]
+
+TASK [streetrack_stig : UBTU-24-700010 | Restrict log file permissions] ********
+skipping: [node1]
+
+TASK [streetrack_stig : UBTU-24-700020 | Configure systemd journal permissions] ***
+changed: [node1]
+
+TASK [streetrack_stig : UBTU-24-700030 | Restrict journalctl permissions] ******
+ok: [node1]
+
+TASK [streetrack_stig : UBTU-24-700070 | Find persistent systemd journal files] ***
+ok: [node1]
+
+TASK [streetrack_stig : UBTU-24-700070 | Set persistent journal file ownership and permissions] ***
+ok: [node1] => (item={'path': '/var/log/journal/7441b578b98c43f5a7e00945b1f3d3b4/user-1000.journal', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 999, 'size': 8388608, 'inode': 78621, 'dev': 66305, 'nlink': 1, 'atime': 1787508233.5040743, 'mtime': 1787508888.2678003, 'ctime': 1787508888.2678003, 'gr_name': 'systemd-journal', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+ok: [node1] => (item={'path': '/var/log/journal/7441b578b98c43f5a7e00945b1f3d3b4/system.journal', 'mode': '0640', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 999, 'size': 8388608, 'inode': 21, 'dev': 66305, 'nlink': 1, 'atime': 1787508233.5040743, 'mtime': 1787508887.7937896, 'ctime': 1787508887.7937896, 'gr_name': 'systemd-journal', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+
+TASK [streetrack_stig : UBTU-24-700070 | Find runtime systemd journal files] ***
+ok: [node1]
+
+TASK [streetrack_stig : UBTU-24-700070 | Set runtime journal file ownership and permissions] ***
+skipping: [node1]
+
+TASK [streetrack_stig : UBTU-24-700070 | Configure systemd journal tmpfiles policy] ***
+changed: [node1]
+
+TASK [streetrack_stig : UBTU-24-700120 | Set permissions on /var/log] **********
+ok: [node1]
+
+TASK [streetrack_stig : UBTU-24-600180 | Configure chrony makestep] ************
+changed: [node1]
+
+TASK [streetrack_stig : UBTU-24-900980 | Ensure local auditor account exists] ***
+ok: [node1]
+
+TASK [streetrack_stig : UBTU-24-900980 | Configure audit failure notification account] ***
+changed: [node1]
+
+RUNNING HANDLER [streetrack_stig : Restart rsyslog] ****************************
+changed: [node1]
+
+RUNNING HANDLER [streetrack_stig : Restart chrony] *****************************
+changed: [node1]
+
+RUNNING HANDLER [streetrack_stig : Restart auditd] *****************************
+changed: [node1]
+
+RUNNING HANDLER [streetrack_stig : Apply systemd journal tmpfiles] *************
+changed: [node1]
+
+PLAY RECAP *********************************************************************
+node1                      : ok=271  changed=19   unreachable=0    failed=0    skipped=153  rescued=0    ignored=0   
+
