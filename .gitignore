@@ -13,6 +13,7 @@ ansible/*inventory.local
 *.vault
 vault.yml
 vault.yaml
+ansible/group_vars/all/vault.yaml
 
 # Ansible artifacts
 *.retry
@@ -30,8 +31,8 @@ __pycache__/
 Thumbs.db
 
 # Project evidence
-evidence/*
-!evidence/README.md
+# evidence/*
+# !evidence/README.md
 
 # Nessus / generated reports
 reports/*
@@ -44,11 +45,5 @@ reports/*
 
 # Ansible Inventory
 ansible/inventory
-
-# Ansible Vault
-ansible/vault.yaml
 .ansible_vault_pass
 
-# Evidence
-evidence/*
-!evidence/README.md
